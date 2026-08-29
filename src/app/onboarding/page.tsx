@@ -1,0 +1,27 @@
+import { redirect } from "next/navigation";
+
+import { OnboardingForm } from "@/features/onboarding/OnboardingForm";
+import { hasProfile } from "@/core/store";
+
+export default async function OnboardingPage() {
+  if (await hasProfile()) redirect("/");
+
+  return (
+    <main className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-24">
+      <header className="mb-12 flex flex-col gap-3">
+        <p className="text-muted-foreground font-mono text-xs tracking-[0.18em] uppercase">
+          Playbook
+        </p>
+        <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          First, who are we working with?
+        </h1>
+        <p className="text-muted-foreground max-w-prose text-base leading-relaxed">
+          Playbook builds plans around what you have already got, so it needs to know what that is.
+          This takes two minutes and you only do it once.
+        </p>
+      </header>
+
+      <OnboardingForm />
+    </main>
+  );
+}

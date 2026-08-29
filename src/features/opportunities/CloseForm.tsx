@@ -1,0 +1,86 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import { Loader2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+
+import { closeOpportunity } from "./actions";
+
+/**
+ * Recording an outcome. Both fields are shown, but only one has to be filled -
+ * the point is to capture something real, not to complete a form.
+ */
+export function CloseForm({ projectId, opportunityId }: { projectId: string; opportunityId: string }) {
+  const [open, setOpen] = useState(false);
+  const [notes, setNotes] = useState("");
+  const [impact, setImpact] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [pending, start] = useTransition();
+
+  function close(action: "finish" | "deactivate") {
+    setError(null);
+    start(async () => {
+      try {
+        await closeOpportunity(projectId, opportunityId, action, notes, impact);
+      } catch (e) {
+        if (e instanceof Error) setError(e.message);
+      }
+    });
+  }
+
+  if (!open) {
+    return (
+      <Button size="sm" variant="outline" className="mt-3" onClick={() => setOpen(true)}>
+        Record what happened
+      </Button>
+    );
+  }
+
+  return (
+    <div className="border-border mt-4 flex flex-col gap-4 border-t pt-4">
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor={`notes-${opportunityId}`} className="text-sm">
+          What happened?
+        </Label>
+        <Textarea
+          id={`notes-${opportunityId}`}
+          rows={2}
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          className="resize-y"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor={`impact-${opportunityId}`} className="text-sm">
+          What did it change?
+        </Label>
+        <Textarea
+          id={`impact-${opportunityId}`}
+          rows={2}
+          value={impact}
+          onChange={(e) => setImpact(e.target.value)}
+          className="resize-y"
+        />
+      </div>
+
+      {error && <p className="text-destructive text-sm">{error}</p>}
+
+      <div className="flex flex-wrap items-center gap-2">
+        <Button size="sm" onClick={() => close("finish")} disabled={pending}>
+          {pending && <Loader2 className="size-3.5 animate-spin" />}
+          Finished it
+        </Button>
+        <Button size="sm" variant="ghost" onClick={() => close("deactivate")} disabled={pending}>
+          Dropped it
+        </Button>
+        <Button size="sm" variant="ghost" onClick={() => setOpen(false)} disabled={pending}>
+          Cancel
+        </Button>
+      </div>
+    </div>
+  );
+}
