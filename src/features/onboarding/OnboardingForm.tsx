@@ -7,7 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
+import { Generating } from "@/features/workspace/Generating";
+
 import { extractText, saveProfile } from "./actions";
+
+const BUILDING = {
+  estimateSeconds: 45,
+  phases: [
+    "Reading what you wrote",
+    "Separating what you can do from what you have built",
+    "Noting who you know and what limits you",
+    "Looking for what you are not using yet",
+  ],
+};
 
 const QUESTIONS = [
   {
@@ -132,17 +144,22 @@ export function OnboardingForm() {
         </p>
       )}
 
-      <div className="flex items-center gap-4">
-        <Button type="submit" size="lg" disabled={!ready || saving}>
-          {saving && <Loader2 className="size-4 animate-spin" />}
-          {saving ? "Building your profile..." : "Continue"}
-        </Button>
-        {!ready && (
-          <span className="text-muted-foreground text-sm">
-            Add a bit more background to continue.
-          </span>
-        )}
-      </div>
+      {saving ? (
+        <div className="border-border bg-card rounded-xl border p-5">
+          <Generating stage={BUILDING} />
+        </div>
+      ) : (
+        <div className="flex items-center gap-4">
+          <Button type="submit" size="lg" disabled={!ready}>
+            Continue
+          </Button>
+          {!ready && (
+            <span className="text-muted-foreground text-sm">
+              Add a bit more background to continue.
+            </span>
+          )}
+        </div>
+      )}
     </form>
   );
 }

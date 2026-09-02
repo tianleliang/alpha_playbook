@@ -8,20 +8,21 @@
  * caught. A checker that never fires is not a checker.
  */
 
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { checkProject } from "../src/core/validate.ts";
 import type { Project } from "../src/core/types.ts";
 
-const DIR = join(process.cwd(), "data", "projects");
-const files = readdirSync(DIR).filter((f) => f.endsWith(".json"));
-if (files.length === 0) {
-  console.error("No projects saved yet. Walk one through the app first.");
+// Goals live in Postgres now, so point this at an exported project file:
+//   npm run check -- path/to/project.json
+const target = process.argv[2] ?? join(process.cwd(), "src", "demo", "project.json");
+if (!existsSync(target)) {
+  console.error(`No project file at ${target}. Pass one: npm run check -- path/to/project.json`);
   process.exit(1);
 }
 
-const project = JSON.parse(readFileSync(join(DIR, files[0]), "utf8")) as Project;
+const project = JSON.parse(readFileSync(target, "utf8")) as Project;
 const copy = () => structuredClone(project);
 
 let failures = 0;

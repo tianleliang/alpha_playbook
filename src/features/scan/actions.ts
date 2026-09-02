@@ -12,6 +12,7 @@
 import { getProvider } from "@/ai";
 import { currentStep, nodesForStep } from "@/core/flow";
 import { opportunityId, resultId, scanId } from "@/core/ids";
+import { normalizeUrls } from "@/core/links";
 import { mutate } from "@/core/mutate";
 import { readProfile } from "@/core/store";
 import type { Opportunity, ResultStatus, Scan, ScanResult } from "@/core/types";
@@ -61,6 +62,7 @@ export async function runScan(projectId: string): Promise<void> {
       for (const result of group.results) {
         results.push({
           ...result,
+          sourceLinks: normalizeUrls(result.sourceLinks),
           id: resultId(++n),
           scanId: id,
           stepId: step.id,
@@ -76,6 +78,7 @@ export async function runScan(projectId: string): Promise<void> {
       const { whyMissedByNodes, ...rest } = wildcard;
       results.push({
         ...rest,
+        sourceLinks: normalizeUrls(rest.sourceLinks),
         id: resultId(++n),
         scanId: id,
         stepId: step.id,
@@ -100,6 +103,77 @@ export async function runScan(projectId: string): Promise<void> {
     };
 
     return { ...project, scans: [...project.scans, scan] };
+  });
+}
+
+/**
+ * Decide a whole scan at once.
+ *
+ * You pick what is worth doing; everything you did not pick is set aside. That
+ * is one decision instead of one per result, which matters when a scan returns
+ * a dozen things and you care about two.
+ *
+ * Still not a global sweep: this names one specific scan and the exact result
+ * ids inside it, so nothing outside this scan can be touched, and running it
+ * twice produces the same opportunities rather than duplicates.
+ */
+export async function saveSelected(
+  projectId: string,
+  scanRunId: string,
+  selectedIds: string[],
+): Promise<void> {
+  await mutate(projectId, "triage_results", (project) => {
+    const scan = project.scans.find((s) => s.id === scanRunId);
+    if (!scan) throw new Error("That scan is no longer on this goal.");
+
+    const chosen = new Set(selectedIds);
+    const decidedAt = new Date().toISOString();
+
+    const scans = project.scans.map((s) =>
+      s.id !== scanRunId
+        ? s
+        : {
+            ...s,
+            results: s.results.map((r) =>
+              r.status !== "proposed"
+                ? r
+                : {
+                    ...r,
+                    status: (chosen.has(r.id) ? "saved" : "ignored") as ResultStatus,
+                    decidedAt,
+                  },
+            ),
+          },
+    );
+
+    const opportunities = [...project.opportunities];
+    for (const result of scan.results) {
+      if (!chosen.has(result.id) || result.status !== "proposed") continue;
+
+      const id = opportunityId(scan.id, result.id);
+      if (opportunities.some((o) => o.id === id)) continue;
+
+      opportunities.push({
+        id,
+        status: "active",
+        promotedAt: decidedAt,
+        stepId: result.stepId,
+        sourceScanId: scan.id,
+        sourceResultId: result.id,
+        nodeId: result.nodeId,
+        nodeType: result.nodeType,
+        lane: result.lane,
+        resultType: result.resultType,
+        confidence: result.confidence,
+        title: result.title,
+        summary: result.summary,
+        sourceLinks: result.sourceLinks,
+        timing: result.timing,
+        suggestedAction: result.suggestedAction,
+      });
+    }
+
+    return { ...project, scans, opportunities };
   });
 }
 

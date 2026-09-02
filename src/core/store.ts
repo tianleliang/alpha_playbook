@@ -1,120 +1,143 @@
 /**
  * Saving and loading.
  *
- * Everything lives in plain JSON files under `data/`, one file per project.
- * You can open them in any text editor and read them. That is deliberate -
- * it means your data is never trapped inside the app, and swapping this for a
- * real database later only means rewriting this one file.
+ * Everything lives in Postgres, in two tables, as JSONB. The domain objects go
+ * in exactly as `types.ts` defines them, which means the shape can change
+ * without a migration - Postgres owns identity and ownership, this app owns
+ * the shape.
+ *
+ * Every read and write runs as the signed-in user, so row-level security
+ * decides what is visible. Nothing here filters by user by hand, because a
+ * policy you cannot forget beats a `where` clause you can.
  *
  * Server-side only. Never import this into a component that runs in the browser.
  */
 
-import { existsSync } from "node:fs";
-import { mkdir, readFile, readdir, rename, unlink, writeFile } from "node:fs/promises";
-import { join } from "node:path";
-
 import type { Profile, Project } from "./types";
+import { createClient } from "@/lib/supabase/server";
 
-const DATA_DIR = join(process.cwd(), "data");
-const PROJECTS_DIR = join(DATA_DIR, "projects");
-const PROFILE_FILE = join(DATA_DIR, "profile.json");
-
-async function ensureDirs(): Promise<void> {
-  await mkdir(PROJECTS_DIR, { recursive: true });
+async function db() {
+  return createClient();
 }
 
-/**
- * Write to a temporary file, then rename it into place. Renaming is atomic, so
- * a crash mid-write can never leave a half-written project on disk.
- */
-async function writeAtomic(path: string, value: unknown): Promise<void> {
-  const tmp = `${path}.tmp`;
-  await writeFile(tmp, `${JSON.stringify(value, null, 2)}\n`, "utf-8");
-  await rename(tmp, path);
-}
+/** Supabase returns this when a single-row query finds nothing. */
+const NOT_FOUND = "PGRST116";
 
-async function readJson<T>(path: string): Promise<T | null> {
-  if (!existsSync(path)) return null;
-  try {
-    return JSON.parse(await readFile(path, "utf-8")) as T;
-  } catch {
-    return null;
-  }
+async function requireUser(): Promise<string> {
+  const supabase = await db();
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) throw new Error("You need to be signed in.");
+  return data.user.id;
 }
 
 // ---------------------------------------------------------------- profile
 
 export async function readProfile(): Promise<Profile | null> {
-  return readJson<Profile>(PROFILE_FILE);
+  const supabase = await db();
+  const { data, error } = await supabase.from("profiles").select("data").single();
+
+  if (error) {
+    if (error.code === NOT_FOUND) return null;
+    throw new Error(`Could not load your profile: ${error.message}`);
+  }
+  return (data?.data as Profile) ?? null;
 }
 
 export async function writeProfile(profile: Profile): Promise<Profile> {
-  await ensureDirs();
+  const userId = await requireUser();
+  const supabase = await db();
   const saved = { ...profile, updatedAt: new Date().toISOString() };
-  await writeAtomic(PROFILE_FILE, saved);
+
+  const { error } = await supabase
+    .from("profiles")
+    .upsert({ user_id: userId, data: saved, updated_at: saved.updatedAt });
+
+  if (error) throw new Error(`Could not save your profile: ${error.message}`);
   return saved;
 }
 
 export async function hasProfile(): Promise<boolean> {
-  return existsSync(PROFILE_FILE);
+  return (await readProfile()) !== null;
 }
 
 // ---------------------------------------------------------------- projects
 
-function projectPath(id: string): string {
-  return join(PROJECTS_DIR, `${id}.json`);
-}
-
 export async function readProject(id: string): Promise<Project | null> {
-  return readJson<Project>(projectPath(id));
+  const supabase = await db();
+  const { data, error } = await supabase.from("projects").select("data").eq("id", id).single();
+
+  if (error) {
+    if (error.code === NOT_FOUND) return null;
+    throw new Error(`Could not load that goal: ${error.message}`);
+  }
+  return (data?.data as Project) ?? null;
 }
 
 /** Newest activity first. */
 export async function listProjects(): Promise<Project[]> {
-  await ensureDirs();
-  const files = (await readdir(PROJECTS_DIR)).filter((f) => f.endsWith(".json"));
-  const projects: Project[] = [];
-  for (const file of files) {
-    const project = await readJson<Project>(join(PROJECTS_DIR, file));
-    if (project) projects.push(project);
-  }
-  return projects.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  const supabase = await db();
+  const { data, error } = await supabase
+    .from("projects")
+    .select("data")
+    .order("updated_at", { ascending: false });
+
+  if (error) throw new Error(`Could not load your goals: ${error.message}`);
+  return (data ?? []).map((row) => row.data as Project);
 }
 
 /**
- * Save changes to a project that already exists. Stamps `updatedAt` so the
- * project list stays ordered by real activity.
+ * Save changes to a goal that already exists. Stamps `updatedAt` so the list
+ * stays ordered by real activity.
  */
 export async function writeProject(project: Project): Promise<Project> {
-  await ensureDirs();
+  const userId = await requireUser();
+  const supabase = await db();
   const saved = { ...project, updatedAt: new Date().toISOString() };
-  await writeAtomic(projectPath(project.id), saved);
+
+  const { error } = await supabase
+    .from("projects")
+    .upsert({ id: saved.id, user_id: userId, data: saved, updated_at: saved.updatedAt });
+
+  if (error) throw new Error(`Could not save that goal: ${error.message}`);
   return saved;
 }
 
 /**
- * Save a brand new project. Refuses if one with this id already exists, which
- * is how re-submitting the identical goal gets caught instead of silently
- * overwriting the work you already did on it.
+ * Save a brand new goal.
+ *
+ * Ids are derived from the goal itself, so submitting the identical goal twice
+ * collides on the primary key. That is the point: it is caught here instead of
+ * quietly overwriting the work already done on it.
  */
 export async function createProject(project: Project): Promise<Project> {
-  await ensureDirs();
-  if (existsSync(projectPath(project.id))) {
-    throw new Error(
-      `You already have a project for this goal: "${project.title}". Open it instead of creating a duplicate.`,
-    );
+  const userId = await requireUser();
+  const supabase = await db();
+  const saved = { ...project, updatedAt: new Date().toISOString() };
+
+  const { error } = await supabase
+    .from("projects")
+    .insert({ id: saved.id, user_id: userId, data: saved, updated_at: saved.updatedAt });
+
+  if (error) {
+    if (error.code === "23505") {
+      throw new Error(
+        `You already have a goal for this: "${project.title}". Open it instead of starting again.`,
+      );
+    }
+    throw new Error(`Could not create that goal: ${error.message}`);
   }
-  return writeProject(project);
+  return saved;
 }
 
 export async function deleteProject(id: string): Promise<void> {
-  const path = projectPath(id);
-  if (existsSync(path)) await unlink(path);
+  const supabase = await db();
+  const { error } = await supabase.from("projects").delete().eq("id", id);
+  if (error) throw new Error(`Could not delete that goal: ${error.message}`);
 }
 
 // ---------------------------------------------------------------- export
 
-/** Everything, in one object. For backups and for moving to a real database later. */
+/** Everything you own, in one object. For backups and for moving elsewhere. */
 export async function exportAll(): Promise<{ profile: Profile | null; projects: Project[] }> {
   return { profile: await readProfile(), projects: await listProjects() };
 }

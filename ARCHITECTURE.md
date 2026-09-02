@@ -114,13 +114,13 @@ A click travels:
 button (client)
   → server action in features/<thing>/actions.ts
       → mutate(projectId, action, change)          ← src/core/mutate.ts
-          ├─ readProject()                         reload fresh from disk
+          ├─ readProject()                         reload fresh from Postgres
           ├─ can(project, action)?                 ask the rulebook
           │     └─ no → throw, nothing happens
           ├─ change(project)                       may call an AI stage
           │     └─ zod validates the response      bad shape → throw
-          └─ writeProject()                        atomic: tmp file, then rename
-  → revalidatePath() → page re-renders from disk
+          └─ writeProject()                        upsert, scoped to you by RLS
+  → revalidatePath() → page re-renders from the database
 ```
 
 Nothing is held in memory between requests. Every action re-reads state, so a
@@ -152,14 +152,35 @@ instead of a duplicate.
 
 ## Storage
 
-`data/profile.json` and `data/projects/<id>.json`. One file per goal, readable
-in any text editor.
+Postgres, via Supabase. Two tables:
 
-Writes go to a temp file and then get renamed, which is atomic — a crash
-mid-write cannot leave half a goal on disk.
+```sql
+profiles ( user_id uuid pk, data jsonb, updated_at )
+projects ( id text, user_id uuid, data jsonb, updated_at, pk (user_id, id) )
+```
 
-The whole store sits behind `src/core/store.ts`. Moving to Postgres or Supabase
-means rewriting that one file.
+The domain objects go in as JSONB exactly as `types.ts` defines them. Postgres
+owns identity and ownership; the app owns the shape. A change to what a Project
+contains needs no migration.
+
+Ownership is enforced by row-level security, not by application code. There is
+no policy that would let one account read another's rows, so a bug in the app
+cannot leak data. Project ids are derived from the goal, so two users can
+independently arrive at the same one — which is why ownership is part of the
+primary key.
+
+Everything goes through `src/core/store.ts`. Moving to another database means
+rewriting that one file.
+
+## Accounts
+
+Supabase Auth, email and password. `src/middleware.ts` refreshes the session on
+every request and bounces signed-out visitors to `/login`. Server code always
+asks for the user with `getUser()`, never `getSession()` — the latter trusts the
+cookie without checking it.
+
+Passwords are never seen, stored, or logged by this app; they go straight to
+Supabase.
 
 ## The health check
 
@@ -186,6 +207,6 @@ refuses to apply and tells you to run a fresh one.
 
 ## Stack
 
-Next.js App Router · TypeScript · Tailwind · shadcn/ui · Zod · JSON on disk.
-
-No database, no native modules, no API keys, no network calls.
+Next.js App Router · TypeScript · Tailwind · shadcn/ui · Zod · Supabase
+(Postgres + Auth) · OpenAI, with a local Codex CLI provider and a fixture
+provider behind the same interface.

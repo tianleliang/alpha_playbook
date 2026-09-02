@@ -4,14 +4,20 @@ import { useState, useTransition } from "react";
 import { Bookmark, Clock, Loader2, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { hostnameOf } from "@/core/links";
 import type { ScanResult } from "@/core/types";
 
 import { decideResult } from "./actions";
 
+/**
+ * Underneath, results carry a hard/soft lane that decides how the scan searches
+ * for them. That distinction matters to the scan and not at all to you, so the
+ * card shows what the result IS instead of how it was found.
+ */
 const RESULT_KIND: Record<ScanResult["resultType"], string> = {
-  concrete_opportunity: "Opportunity",
-  search_strategy: "How to look",
-  artifact_action: "Something to make",
+  concrete_opportunity: "Apply or join",
+  search_strategy: "How to find it",
+  artifact_action: "Make something",
 };
 
 const DECIDED: Record<string, string> = {
@@ -52,10 +58,7 @@ export function ResultCard({ projectId, result }: { projectId: string; result: S
         <span className="border-border rounded border px-1.5 py-0.5">
           {RESULT_KIND[result.resultType]}
         </span>
-        <span>{result.lane}</span>
-        <span>&middot;</span>
         <span>{result.confidence} confidence</span>
-        {result.isWildcard && <span className="text-amber-600 dark:text-amber-400">wildcard</span>}
       </div>
 
       <h4 className="leading-snug font-medium">{result.title}</h4>
@@ -86,7 +89,7 @@ export function ResultCard({ projectId, result }: { projectId: string; result: S
                 rel="noreferrer"
                 className="text-xs underline-offset-4 hover:underline"
               >
-                {new URL(link).hostname}
+                {hostnameOf(link)}
               </a>
             </li>
           ))}

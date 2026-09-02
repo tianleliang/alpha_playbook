@@ -46,8 +46,8 @@ export type ActionId =
 
 export interface NextAction {
   action: ActionId;
-  /** What the button says. */
-  label: string;
+  /** What the button says. Omitted when there is nothing to press. */
+  label?: string;
   /** One line telling the user why this is the thing to do now. */
   why: string;
 }
@@ -157,9 +157,11 @@ export function stageOf(project: Project): Stage {
   const scan = latestScan(project);
   if (scan && untriagedResults(scan).length > 0) return "scan_triage";
 
-  // Work in progress on this step
-  if (activeOpportunities(project).length > 0) return "active_work";
+  // Finished work outranks work in flight. Opportunities carry across steps,
+  // so you can easily have both - and once there is evidence, the useful
+  // offer is "check whether this step is done", not "log something else".
   if (finishedForCurrentStep(project).length > 0) return "finished_evidence";
+  if (activeOpportunities(project).length > 0) return "active_work";
 
   // Nothing in flight - go find some opportunities
   return "nodes_approved";
@@ -226,10 +228,11 @@ export function nextAction(project: Project): NextAction | null {
       };
 
     case "active_work":
+      // No button. You are meant to go and do these things; the app should
+      // not imply that logging is the next task.
       return {
         action: "finish_opportunity",
-        label: "Log an outcome",
-        why: "When you finish or drop one, record what happened.",
+        why: "Work through your list. Mark anything you finish, and I will check whether you are ready to move on.",
       };
 
     case "finished_evidence":

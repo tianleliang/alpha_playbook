@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import type { NextAction } from "@/core/flow";
 
+import { Generating, stageFor } from "./Generating";
 import { runStageAction } from "./actions";
+
+/** Stages that call an AI and therefore take real time. */
+const SLOW = new Set(["generate_plan", "generate_nodes", "run_scan", "evaluate_step"]);
 
 /**
  * The one thing to do now. Deliberately singular - the whole point is that you
@@ -15,9 +19,12 @@ import { runStageAction } from "./actions";
 export function NextActionCard({
   projectId,
   action,
+  counts,
 }: {
   projectId: string;
   action: NextAction;
+  /** Real numbers from the project, so the waiting screen can be specific. */
+  counts: { steps: number; directions: number; finished: number };
 }) {
   const [error, setError] = useState<string | null>(null);
   const [pending, start] = useTransition();
@@ -33,6 +40,14 @@ export function NextActionCard({
     });
   }
 
+  if (pending && SLOW.has(action.action)) {
+    return (
+      <section className="border-foreground/15 bg-card rounded-xl border p-5 shadow-sm">
+        <Generating stage={stageFor(action.action, counts)} />
+      </section>
+    );
+  }
+
   return (
     <section className="border-foreground/15 bg-card flex flex-col gap-4 rounded-xl border p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:gap-6">
       <div className="flex flex-col gap-1">
@@ -43,7 +58,6 @@ export function NextActionCard({
         {error && <p className="text-destructive mt-1 text-sm">{error}</p>}
       </div>
       <Button size="lg" onClick={run} disabled={pending} className="shrink-0">
-        {pending ? <Loader2 className="size-4 animate-spin" /> : null}
         {pending ? "Working..." : action.label}
         {!pending && <ArrowRight className="size-4" />}
       </Button>

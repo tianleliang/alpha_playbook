@@ -8,10 +8,15 @@
     "start": "next start",
     "lint": "eslint",
     "map": "node scripts/generate-map.mjs",
-    "check": "tsx scripts/check-loop.mts"
+    "check": "tsx scripts/check-loop.mts",
+    "try:codex": "tsx scripts/try-codex.mts",
+    "try:openai": "tsx scripts/try-openai.mts",
+    "try:scan": "tsx scripts/try-scan.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
+    "@supabase/ssr": "^0.12.5",
+    "@supabase/supabase-js": "^2.114.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.35.0",

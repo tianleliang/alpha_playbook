@@ -4,7 +4,14 @@ import { ArrowLeft } from "lucide-react";
 
 import { getProvider } from "@/ai";
 import { Chip } from "@/components/panel";
-import { STAGE_LABEL, nextAction, stageOf } from "@/core/flow";
+import {
+  STAGE_LABEL,
+  currentStep,
+  finishedForCurrentStep,
+  nextAction,
+  nodesForStep,
+  stageOf,
+} from "@/core/flow";
 import { readProject } from "@/core/store";
 import { BriefPanel } from "@/features/brief/BriefPanel";
 import { NodesPanel } from "@/features/nodes/NodesPanel";
@@ -21,6 +28,14 @@ export default async function ProjectPage({ params }: PageProps<"/project/[id]">
   if (!project) notFound();
 
   const action = nextAction(project);
+  const step = currentStep(project);
+
+  // Real numbers, so the waiting screen can say what it is actually doing.
+  const counts = {
+    steps: project.plan?.steps.length ?? 0,
+    directions: step ? nodesForStep(project, step.id).length : 0,
+    finished: finishedForCurrentStep(project).length,
+  };
   const provider = getProvider();
 
   return (
@@ -45,7 +60,7 @@ export default async function ProjectPage({ params }: PageProps<"/project/[id]">
         </div>
       </header>
 
-      {action && <NextActionCard projectId={project.id} action={action} />}
+      {action && <NextActionCard projectId={project.id} action={action} counts={counts} />}
 
       {/* Ordered by what you look at most, not by when it was made. */}
       <ReviewPanel project={project} />

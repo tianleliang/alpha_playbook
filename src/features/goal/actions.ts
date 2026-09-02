@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 
 import { getProvider } from "@/ai";
 import { projectId } from "@/core/ids";
+import { normalizeUrl } from "@/core/links";
 import { createProject } from "@/core/store";
 import type { GoalInput, Project } from "@/core/types";
 
@@ -27,6 +28,11 @@ export async function createGoal(formData: FormData): Promise<void> {
   if (!goal.success) throw new Error("Say how you would know you had succeeded.");
 
   const draft = await getProvider().researchBrief(goal);
+  // Search citations often arrive as markdown rather than plain URLs.
+  const sources = draft.sources
+    .map((s) => ({ title: s.title, url: normalizeUrl(s.url) }))
+    .filter((s): s is { title: string; url: string } => Boolean(s.url));
+
   const id = projectId(draft.title, goal);
   const now = new Date().toISOString();
 
@@ -37,7 +43,7 @@ export async function createGoal(formData: FormData): Promise<void> {
     createdAt: now,
     updatedAt: now,
     goalInput: goal,
-    brief: { status: "review", ...draft },
+    brief: { status: "review", ...draft, sources },
     plan: null,
     nodeSet: null,
     scans: [],

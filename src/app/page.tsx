@@ -5,10 +5,13 @@ import { getProvider } from "@/ai";
 import { Chip } from "@/components/panel";
 import { STAGE_LABEL, stageOf } from "@/core/flow";
 import { listProjects, readProfile } from "@/core/store";
+import { currentUser } from "@/lib/supabase/server";
+import { SignOutButton } from "@/features/auth/SignOutButton";
 import { GoalForm } from "@/features/goal/GoalForm";
 import { ProfileSummary } from "@/features/onboarding/ProfileSummary";
 
 export default async function HomePage() {
+  const user = await currentUser();
   const profile = await readProfile();
   if (!profile) redirect("/onboarding");
 
@@ -21,7 +24,10 @@ export default async function HomePage() {
         <p className="text-muted-foreground font-mono text-xs tracking-[0.18em] uppercase">
           Playbook
         </p>
-        {provider.isMock && <Chip>{provider.name}</Chip>}
+        <div className="flex items-center gap-3">
+          {provider.isMock && <Chip>{provider.name}</Chip>}
+          <SignOutButton email={user?.email} />
+        </div>
       </header>
 
       <section className="flex flex-col gap-6">

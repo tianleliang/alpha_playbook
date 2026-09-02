@@ -36,7 +36,6 @@ export function ScanPanel({ project }: { project: Project }) {
 
         {nodes.map((node) => {
           const results = scan.results.filter((r) => r.nodeId === node.id);
-          const lane = scan.classifications.find((c) => c.nodeId === node.id)?.lane;
           const skipped = scan.emptyOrRejected.find((e) => e.nodeId === node.id);
 
           return (
@@ -46,7 +45,6 @@ export function ScanPanel({ project }: { project: Project }) {
                   {NODE_LABEL[node.nodeType]}
                 </span>
                 <span className="text-sm font-medium">{node.phrase}</span>
-                {lane && <span className="text-muted-foreground font-mono text-[10px]">{lane}</span>}
               </div>
 
               {results.length === 0 ? (
@@ -65,7 +63,7 @@ export function ScanPanel({ project }: { project: Project }) {
         })}
 
         {wildcards.length > 0 && (
-          <Field label="Missed by the directions">
+          <Field label="Also worth a look">
             <ul className="mt-1 flex flex-col gap-3">
               {wildcards.map((result) => (
                 <ResultCard key={result.id} projectId={project.id} result={result} />

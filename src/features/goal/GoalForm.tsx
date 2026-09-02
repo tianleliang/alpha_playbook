@@ -1,14 +1,26 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Generating } from "@/features/workspace/Generating";
 
 import { createGoal } from "./actions";
+
+/** Researching a target is the slowest thing the app does, and the first. */
+const RESEARCHING = {
+  estimateSeconds: 75,
+  phases: [
+    "Working out what you are actually aiming at",
+    "Finding the official pages",
+    "Reading how it currently works",
+    "Checking who gets in and what it rewards",
+    "Writing up what matters for planning",
+  ],
+};
 
 /**
  * The box. Everything downstream comes from these four answers, and nothing
@@ -78,17 +90,17 @@ export function GoalForm() {
         </p>
       )}
 
-      <div className="flex items-center gap-4">
-        <Button type="submit" size="lg" disabled={objective.trim().length < 10 || pending}>
-          {pending && <Loader2 className="size-4 animate-spin" />}
-          {pending ? "Researching the target..." : "Start"}
-        </Button>
-        {pending && (
-          <span className="text-muted-foreground text-sm">
-            Working out what this goal actually involves.
-          </span>
-        )}
-      </div>
+      {pending ? (
+        <div className="border-border bg-card rounded-xl border p-5">
+          <Generating stage={RESEARCHING} />
+        </div>
+      ) : (
+        <div>
+          <Button type="submit" size="lg" disabled={objective.trim().length < 10}>
+            Start
+          </Button>
+        </div>
+      )}
     </form>
   );
 }
