@@ -40,9 +40,9 @@ export function StepRail({ project }: { project: Project }) {
                 <span
                   className={`mt-1 flex size-3.5 shrink-0 items-center justify-center rounded-full border-2 ${
                     done
-                      ? "border-emerald-600 bg-emerald-600 dark:border-emerald-500 dark:bg-emerald-500"
+                      ? "border-[var(--done)] bg-[var(--done)]"
                       : current
-                        ? "border-amber-500 bg-background ring-3 ring-amber-500/20"
+                        ? "border-[var(--brand)] bg-background ring-3 ring-[var(--brand)]/25"
                         : "border-muted-foreground/25 bg-background"
                   }`}
                 >
@@ -51,7 +51,7 @@ export function StepRail({ project }: { project: Project }) {
                 {!last && (
                   <span
                     className={`w-px flex-1 ${
-                      done ? "bg-emerald-600/40 dark:bg-emerald-500/40" : "bg-border"
+                      done ? "bg-[var(--done)]/45" : "bg-border"
                     }`}
                     style={{ minHeight: current ? 34 : 22 }}
                   />

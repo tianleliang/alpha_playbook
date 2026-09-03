@@ -7,6 +7,7 @@ import { STAGE_LABEL, stageOf } from "@/core/flow";
 import { listProjects, readProfile } from "@/core/store";
 import { currentUser } from "@/lib/supabase/server";
 import { SignOutButton } from "@/features/auth/SignOutButton";
+import { ThemeToggle } from "@/features/workspace/ThemeToggle";
 import { GoalForm } from "@/features/goal/GoalForm";
 import { ProfileSummary } from "@/features/onboarding/ProfileSummary";
 
@@ -21,11 +22,12 @@ export default async function HomePage() {
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-12 px-6 py-14 sm:py-20">
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-muted-foreground font-mono text-xs tracking-[0.18em] uppercase">
+        <p className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight">
           Playbook
         </p>
         <div className="flex items-center gap-3">
           {provider.isMock && <Chip>{provider.name}</Chip>}
+          <ThemeToggle />
           <SignOutButton email={user?.email} />
         </div>
       </header>

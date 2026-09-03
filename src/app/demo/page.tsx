@@ -5,6 +5,7 @@ import { Field, Panel } from "@/components/panel";
 import { currentStep, nodesForStep } from "@/core/flow";
 import type { Project, ScanResult } from "@/core/types";
 import { DEMO_STEPS, DemoPager, DemoProgress } from "@/features/demo/DemoNav";
+import { ThemeToggle } from "@/features/workspace/ThemeToggle";
 import { ReadOnly } from "@/features/demo/ReadOnly";
 import { IdentityCard, ResumeDocument } from "@/features/demo/ResumeDocument";
 import { Spotlight, StageNote } from "@/features/demo/Spotlight";
@@ -52,6 +53,8 @@ export default async function DemoPage({
           >
             &larr; Playbook
           </Link>
+
+          <ThemeToggle />
 
           <div className="flex flex-col gap-1">
             <p className="text-muted-foreground font-mono text-[11px] tracking-[0.14em] uppercase">

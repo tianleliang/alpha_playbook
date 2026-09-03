@@ -11,12 +11,14 @@ export function Panel({
   children: ReactNode;
 }) {
   return (
-    <section className="border-border bg-card flex flex-col gap-5 rounded-xl border p-5 sm:p-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
+    <section className="border-border bg-card flex flex-col rounded-xl border">
+      <header className="border-border bg-muted/40 flex flex-wrap items-center justify-between gap-3 rounded-t-xl border-b px-5 py-3.5 sm:px-6">
+        <h2 className="font-[family-name:var(--font-display)] text-[17px] font-semibold tracking-tight">
+          {title}
+        </h2>
         {meta}
       </header>
-      {children}
+      <div className="flex flex-col gap-5 p-5 sm:p-6">{children}</div>
     </section>
   );
 }
@@ -57,8 +59,8 @@ export function Chip({
 }) {
   const tones = {
     neutral: "border-border text-muted-foreground",
-    live: "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400",
-    done: "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+    live: "border-[var(--brand)]/45 bg-[var(--brand)]/12 text-[var(--brand-ink)]",
+    done: "border-[var(--done)]/40 bg-[var(--done)]/12 text-[var(--done)]",
   };
   return (
     <span className={`rounded-full border px-2.5 py-1 font-mono text-[11px] ${tones[tone]}`}>

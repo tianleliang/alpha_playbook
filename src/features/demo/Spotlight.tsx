@@ -28,7 +28,7 @@ export function Spotlight({
     return (
       <div className="flex flex-col">
         <Ringed>{children}</Ringed>
-        <span aria-hidden className="ml-8 h-5 w-px border-l border-dashed border-amber-500/70" />
+        <span aria-hidden className="ml-8 h-5 w-px border-l border-dashed border-[var(--brand)]/70" />
         <Note label={label}>{note}</Note>
       </div>
     );
@@ -41,7 +41,7 @@ export function Spotlight({
       {/* connector: vertical on narrow screens, horizontal in the gutter */}
       <span
         aria-hidden
-        className="ml-8 h-5 w-px border-l border-dashed border-amber-500/70 xl:mx-0 xl:h-px xl:w-8 xl:border-t xl:border-l-0"
+        className="ml-8 h-5 w-px border-l border-dashed border-[var(--brand)]/70 xl:mx-0 xl:h-px xl:w-8 xl:border-t xl:border-l-0"
       />
 
       <Note label={label}>{note}</Note>
@@ -51,7 +51,7 @@ export function Spotlight({
 
 function Ringed({ children }: { children: ReactNode }) {
   return (
-    <div className="rounded-xl p-1 ring-2 ring-amber-500/70 ring-offset-0">
+    <div className="rounded-xl p-1 ring-2 ring-[var(--brand)]/70 ring-offset-0">
       <div className="rounded-lg">{children}</div>
     </div>
   );
@@ -59,9 +59,9 @@ function Ringed({ children }: { children: ReactNode }) {
 
 function Note({ label, children }: { label?: string; children: ReactNode }) {
   return (
-    <aside className="rounded-lg border border-amber-500/40 bg-amber-500/[0.07] px-3.5 py-3">
+    <aside className="rounded-lg border border-[var(--brand)]/40 bg-[var(--brand)]/[0.08] px-3.5 py-3">
       {label && (
-        <p className="mb-1 font-mono text-[10px] tracking-[0.12em] text-amber-700 uppercase dark:text-amber-500">
+        <p className="mb-1 font-mono text-[10px] tracking-[0.12em] text-[var(--brand-ink)] uppercase">
           {label}
         </p>
       )}
@@ -73,7 +73,7 @@ function Note({ label, children }: { label?: string; children: ReactNode }) {
 /** A short note with no highlight, for framing a whole stage in one line. */
 export function StageNote({ children }: { children: ReactNode }) {
   return (
-    <p className="text-muted-foreground border-l-2 border-amber-500/60 py-1 pl-3 text-sm leading-relaxed">
+    <p className="text-muted-foreground border-l-2 border-[var(--brand)]/60 py-1 pl-3 text-sm leading-relaxed">
       {children}
     </p>
   );

@@ -23,6 +23,7 @@ import { ScanPanel } from "@/features/scan/ScanPanel";
 import { ScanTriage } from "@/features/scan/ScanTriage";
 import { HealthPanel } from "@/features/workspace/HealthPanel";
 import { NextActionCard } from "@/features/workspace/NextActionCard";
+import { ThemeToggle } from "@/features/workspace/ThemeToggle";
 import { ReferenceRail, type View } from "@/features/workspace/ReferenceRail";
 import { StepFocus } from "@/features/workspace/StepFocus";
 import { NODE_LABEL } from "@/features/nodes/NodesPanel";
@@ -97,7 +98,10 @@ export default async function ProjectPage({
         {project.plan && <StepRail project={project} />}
         <ReferenceRail project={project} active={view} />
 
-        {provider.isMock && <Chip>{provider.name}</Chip>}
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          {provider.isMock && <Chip>{provider.name}</Chip>}
+        </div>
       </aside>
 
       <main className="flex min-w-0 flex-1 flex-col gap-6">

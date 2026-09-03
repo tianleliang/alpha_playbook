@@ -72,7 +72,7 @@ export function ReferenceRail({ project, active }: { project: Project; active?: 
                 href={`/project/${project.id}?view=${entry.view}`}
                 className={`flex flex-col gap-0.5 rounded-md px-2.5 py-2 text-sm transition-colors ${
                   isActive
-                    ? "bg-foreground/[0.06] font-medium"
+                    ? "bg-[var(--support)]/10 font-medium text-[var(--support)]"
                     : "hover:bg-foreground/[0.04] text-muted-foreground hover:text-foreground"
                 }`}
               >

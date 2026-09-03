@@ -69,9 +69,9 @@ export function DemoProgress({ current }: { current: number }) {
               <span
                 className={`size-2 shrink-0 rounded-full ${
                   done
-                    ? "bg-emerald-600 dark:bg-emerald-500"
+                    ? "bg-[var(--done)]"
                     : here
-                      ? "bg-amber-500 ring-3 ring-amber-500/20"
+                      ? "bg-[var(--brand)] ring-3 ring-[var(--brand)]/25"
                       : "bg-muted-foreground/25"
                 }`}
               />

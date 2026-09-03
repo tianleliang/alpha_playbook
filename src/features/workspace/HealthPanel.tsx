@@ -23,9 +23,9 @@ export function HealthPanel({ project }: { project: Project }) {
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-sm">
         <span className="flex items-center gap-2">
           {warnings.length === 0 ? (
-            <Check className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+            <Check className="size-3.5 text-[var(--done)]" />
           ) : (
-            <AlertTriangle className="size-3.5 text-amber-600 dark:text-amber-400" />
+            <AlertTriangle className="size-3.5 text-[var(--brand)]" />
           )}
           <span className="font-medium">
             {warnings.length === 0 ? "Everything checks out" : `${warnings.length} things to look at`}

@@ -63,7 +63,7 @@ export function GoalForm() {
           <div className="flex flex-col gap-2">
             <Label htmlFor="success">How would you know you had succeeded?</Label>
             <p className="text-muted-foreground text-sm">
-              Something you could point at, not a feeling.
+              Something you could point at.
             </p>
             <Textarea id="success" name="success" rows={2} className="resize-y" />
           </div>
@@ -71,7 +71,7 @@ export function GoalForm() {
           <div className="flex flex-col gap-2">
             <Label htmlFor="deadline">By when?</Label>
             <p className="text-muted-foreground text-sm">
-              A date, or a rough horizon like &ldquo;within a year&rdquo;.
+              A date, or roughly when.
             </p>
             <Input id="deadline" name="deadline" placeholder="2027-07-01" />
           </div>

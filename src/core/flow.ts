@@ -180,41 +180,41 @@ export function nextAction(project: Project): NextAction | null {
       return {
         action: "approve_brief",
         label: "Approve brief",
-        why: "Check the research is right before it shapes your plan.",
+        why: "Read it first. Everything after this is built on it.",
       };
 
     case "brief_approved":
       return {
         action: "generate_plan",
         label: "Build my plan",
-        why: "Turn the approved brief into a plan built on your actual advantages.",
+        why: "Now the interesting part. This uses what you already have.",
       };
 
     case "plan_proposed":
       return {
         action: "approve_plan",
         label: "Approve plan",
-        why: "Edit anything that is off, then lock it in as your path.",
+        why: "Your call. Once you approve it, this is the path.",
       };
 
     case "plan_approved":
       return {
         action: "generate_nodes",
-        label: "Generate leverage nodes",
-        why: "Work out what kinds of outside help each step should look for.",
+        label: "Find leverage",
+        why: "Before searching, decide what is worth searching for.",
       };
 
     case "nodes_proposed":
       return {
         action: "approve_nodes",
-        label: "Approve leverage nodes",
-        why: "These decide what the opportunity scan goes looking for.",
+        label: "Approve",
+        why: "These aim the search. Worth thirty seconds.",
       };
 
     case "nodes_approved":
       return {
         action: "run_scan",
-        label: "Run opportunity scan",
+        label: "Go find opportunities",
         why: step
           ? `Search the outside world for things that move ${step.title} forward.`
           : "Search for opportunities relevant to your current step.",
@@ -224,7 +224,7 @@ export function nextAction(project: Project): NextAction | null {
       return {
         action: "triage_results",
         label: "Review scan results",
-        why: "Save what is worth doing, ignore what is not.",
+        why: "Pick what you will actually do.",
       };
 
     case "active_work":
@@ -232,14 +232,14 @@ export function nextAction(project: Project): NextAction | null {
       // not imply that logging is the next task.
       return {
         action: "finish_opportunity",
-        why: "Work through your list. Mark anything you finish, and I will check whether you are ready to move on.",
+        why: "Go and do these. Mark anything you finish and we will see where you stand.",
       };
 
     case "finished_evidence":
       return {
         action: "evaluate_step",
         label: "Check my progress",
-        why: "See whether this step is genuinely done or still needs work.",
+        why: "You have finished something. See if that was enough.",
       };
 
     // Both review stages are informational here. The verdict panel below owns
@@ -247,13 +247,13 @@ export function nextAction(project: Project): NextAction | null {
     case "review_proposed":
       return {
         action: "decide_review",
-        why: "The step review below has a verdict. Agree with it, or disagree and move on anyway.",
+        why: "There is a verdict below. Agree, or overrule it.",
       };
 
     case "review_approved":
       return {
         action: "apply_review",
-        why: "You agreed this step is done. Apply it below to move to the next one.",
+        why: "Agreed. Apply it below and the next step begins.",
       };
 
     case "complete":

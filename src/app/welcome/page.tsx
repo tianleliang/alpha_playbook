@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ThemeToggle } from "@/features/workspace/ThemeToggle";
+
 export const metadata = {
   title: "Playbook",
   description: "Turn one goal into a plan built on what you already have.",
@@ -43,16 +45,17 @@ export default function WelcomePage() {
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-col gap-12 px-6 py-20 sm:py-28">
       <header className="flex flex-col gap-5">
-        <p className="text-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">
-          Playbook
-        </p>
+        <div className="flex items-center justify-between gap-4">
+          <p className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight">
+            Playbook
+          </p>
+          <ThemeToggle />
+        </div>
         <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
           One goal. A plan built on what you already have.
         </h1>
         <p className="text-muted-foreground max-w-prose text-lg leading-relaxed">
-          Most planning tools give everyone the same advice. Playbook reads your actual background,
-          researches what you are aiming at, and works backwards. Then it goes and finds real
-          programs, people and openings for the step you are on right now.
+          Most planning tools hand everyone the same advice. This one reads your actual background, researches what you are chasing, and works backwards from it. Then it goes and finds real programs, real people, real deadlines for the step you are on right now.
         </p>
       </header>
 
@@ -89,8 +92,7 @@ export default function WelcomePage() {
           ))}
         </ol>
         <p className="text-muted-foreground text-sm">
-          Building a plan takes a few minutes of real research and web search. The demo skips the
-          wait.
+          A real plan takes a few minutes to build. The demo skips the wait.
         </p>
       </section>
 

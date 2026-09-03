@@ -146,7 +146,7 @@ function Row({
       <label
         className={`flex gap-3 rounded-lg border p-4 transition-colors ${
           kept
-            ? "border-emerald-500/50 bg-emerald-500/[0.06]"
+            ? "border-[var(--done)]/50 bg-[var(--done)]/[0.08]"
             : checked
               ? "border-foreground/40 bg-foreground/[0.03]"
               : "border-border hover:border-foreground/20"
@@ -165,7 +165,7 @@ function Row({
           aria-hidden
           className={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded border ${
             kept
-              ? "border-emerald-600 bg-emerald-600 text-white dark:border-emerald-500 dark:bg-emerald-500"
+              ? "border-[var(--done)] bg-[var(--done)] text-white"
               : checked
                 ? "border-foreground bg-foreground text-background"
                 : "border-muted-foreground/40"
@@ -181,7 +181,7 @@ function Row({
             </span>
             <span>{result.confidence} confidence</span>
             {kept && (
-              <span className="font-medium text-emerald-700 dark:text-emerald-500">kept</span>
+              <span className="font-medium text-[var(--done)]">kept</span>
             )}
             {decided && !kept && <span>set aside</span>}
           </span>

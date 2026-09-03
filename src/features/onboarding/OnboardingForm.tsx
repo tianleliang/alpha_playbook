@@ -31,13 +31,13 @@ const QUESTIONS = [
   {
     name: "access",
     label: "Who do you already know who could open a door?",
-    hint: "Names, roles, or just the kind of person. Optional.",
+    hint: "Names, roles, or just the type of person.",
     rows: 3,
   },
   {
     name: "constraints",
     label: "Anything that genuinely limits you?",
-    hint: "Time, money, location, visa, commitments. Optional.",
+    hint: "Time, money, location, commitments.",
     rows: 2,
   },
 ] as const;
@@ -107,8 +107,7 @@ export function OnboardingForm() {
           </button>
         </div>
         <p className="text-muted-foreground text-sm">
-          Or a LinkedIn dump, or just write out what you have done. Nobody reads this but you and
-          the app.
+          A LinkedIn dump works. So does just writing it out. Nobody else sees this.
         </p>
         <Textarea
           id="resume"

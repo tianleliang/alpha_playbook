@@ -75,7 +75,7 @@ export function TodoList({
 
       {active.length > 0 && finishedHere.length === 0 && (
         <p className="text-muted-foreground text-xs">
-          Once you finish one of these, the system checks whether you are ready for the next step.
+          Finish one and we will check whether the step is done.
         </p>
       )}
     </section>

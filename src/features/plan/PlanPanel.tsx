@@ -90,7 +90,7 @@ function StepRow({ step }: { step: Step }) {
     <li
       className={`rounded-lg border p-4 ${
         current
-          ? "border-amber-500/40 bg-amber-500/[0.04]"
+          ? "border-[var(--brand)]/45 bg-[var(--brand)]/[0.06]"
           : complete
             ? "border-border/60 opacity-70"
             : "border-border/60"
@@ -100,7 +100,7 @@ function StepRow({ step }: { step: Step }) {
         <span className="text-muted-foreground font-mono text-[11px]">{step.dateRange}</span>
         {current && <Chip tone="live">Now</Chip>}
         {complete && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400">
+          <span className="inline-flex items-center gap-1 text-[11px] text-[var(--done)]">
             <Check className="size-3" /> Done
           </span>
         )}
