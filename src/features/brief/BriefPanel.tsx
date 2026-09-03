@@ -11,7 +11,7 @@ export function BriefPanel({ project }: { project: Project }) {
 
   return (
     <Panel
-      title="The goal"
+      title="Brief"
       meta={
         approved ? (
           <Chip tone="done">Approved</Chip>

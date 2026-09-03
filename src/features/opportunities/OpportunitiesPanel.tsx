@@ -13,7 +13,7 @@ export function OpportunitiesPanel({ project }: { project: Project }) {
   if (active.length === 0) return null;
 
   return (
-    <Panel title="What you are working on" meta={<Chip tone="live">{active.length} active</Chip>}>
+    <Panel title="Opportunities" meta={<Chip tone="live">{active.length} active</Chip>}>
       <ul className="flex flex-col gap-3">
         {active.map((opportunity) => (
           <OpportunityRow key={opportunity.id} projectId={project.id} opportunity={opportunity} />

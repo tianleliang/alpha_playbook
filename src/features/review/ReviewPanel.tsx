@@ -7,8 +7,8 @@ import { ReviewDecisionButtons } from "./ReviewDecisionButtons";
 const DECISION_LABEL: Record<ReviewDecision, string> = {
   advance: "Ready to move on",
   stay: "Stay on this step",
-  needs_more_evidence: "Not enough to go on yet",
-  revise_plan: "The plan needs changing",
+  needs_more_evidence: "Not enough evidence yet",
+  revise_plan: "The plan needs revising",
 };
 
 /**
@@ -25,7 +25,7 @@ export function ReviewPanel({ project }: { project: Project }) {
 
   return (
     <Panel
-      title="Progress check"
+      title="Step Review"
       meta={
         stale ? (
           <Chip>Out of date</Chip>

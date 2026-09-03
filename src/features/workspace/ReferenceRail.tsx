@@ -20,8 +20,8 @@ export function ReferenceRail({ project, active }: { project: Project; active?: 
   const entries: Array<{ view: View; label: string; note: string; ready: boolean }> = [
     {
       view: "brief",
-      label: "Goal",
-      note: "What you are aiming at",
+      label: "Brief",
+      note: "The researched target",
       ready: true,
     },
     {
@@ -32,14 +32,14 @@ export function ReferenceRail({ project, active }: { project: Project; active?: 
     },
     {
       view: "directions",
-      label: "Directions",
-      note: project.nodeSet ? `${project.nodeSet.nodes.length} search directions` : "Not built yet",
+      label: "Leverage Nodes",
+      note: project.nodeSet ? `${project.nodeSet.nodes.length} nodes` : "Not built yet",
       ready: Boolean(project.nodeSet),
     },
     {
       view: "results",
-      label: "Results",
-      note: scan ? `${scan.results.length} found` : "No scan yet",
+      label: "Opportunity Scan",
+      note: scan ? `${scan.results.length} results` : "Not run yet",
       ready: Boolean(scan),
     },
   ];

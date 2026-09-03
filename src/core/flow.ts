@@ -200,21 +200,21 @@ export function nextAction(project: Project): NextAction | null {
     case "plan_approved":
       return {
         action: "generate_nodes",
-        label: "Find leverage directions",
+        label: "Generate leverage nodes",
         why: "Work out what kinds of outside help each step should look for.",
       };
 
     case "nodes_proposed":
       return {
         action: "approve_nodes",
-        label: "Approve directions",
-        why: "These decide what the scan goes looking for.",
+        label: "Approve leverage nodes",
+        why: "These decide what the opportunity scan goes looking for.",
       };
 
     case "nodes_approved":
       return {
         action: "run_scan",
-        label: "Scan for opportunities",
+        label: "Run opportunity scan",
         why: step
           ? `Search the outside world for things that move ${step.title} forward.`
           : "Search for opportunities relevant to your current step.",
@@ -242,18 +242,18 @@ export function nextAction(project: Project): NextAction | null {
         why: "See whether this step is genuinely done or still needs work.",
       };
 
+    // Both review stages are informational here. The verdict panel below owns
+    // these controls, because what you can do depends on what it decided.
     case "review_proposed":
       return {
         action: "decide_review",
-        label: "Read the review",
-        why: "Approve it, reject it, or keep working on this step.",
+        why: "The step review below has a verdict. Agree with it, or disagree and move on anyway.",
       };
 
     case "review_approved":
       return {
         action: "apply_review",
-        label: "Move to next step",
-        why: "Complete this step and make the next one current.",
+        why: "You agreed this step is done. Apply it below to move to the next one.",
       };
 
     case "complete":
@@ -297,10 +297,10 @@ export const STAGE_LABEL: Record<Stage, string> = {
   brief_review: "Brief needs review",
   brief_approved: "Ready to plan",
   plan_proposed: "Plan needs review",
-  plan_approved: "Ready for leverage directions",
-  nodes_proposed: "Directions need review",
+  plan_approved: "Ready for leverage nodes",
+  nodes_proposed: "Leverage nodes need review",
   nodes_approved: "Ready to scan",
-  scan_triage: "Results waiting",
+  scan_triage: "Scan results waiting",
   active_work: "In progress",
   finished_evidence: "Ready to check progress",
   review_proposed: "Review waiting",

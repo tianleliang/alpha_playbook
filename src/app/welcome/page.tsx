@@ -13,11 +13,11 @@ const STEPS: Array<[string, string]> = [
   ],
   [
     "Get a plan",
-    "Steps working backwards from your deadline, each one naming the advantage it uses.",
+    "Timeline steps working backwards from your deadline, each one naming the advantage it uses.",
   ],
   [
-    "Get real opportunities",
-    "It searches for things that move your current step, with links, deadlines, and the first message to send.",
+    "Run an opportunity scan",
+    "It searches for real programs, people and openings that move your current step, with links, deadlines, and the first message to send.",
   ],
   [
     "Do them, log them",

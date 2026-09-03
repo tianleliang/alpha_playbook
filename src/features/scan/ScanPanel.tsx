@@ -19,7 +19,7 @@ export function ScanPanel({ project }: { project: Project }) {
 
   return (
     <Panel
-      title="What it found"
+      title="Opportunity Scan"
       meta={
         <div className="flex items-center gap-2">
           <Chip>{scan.id}</Chip>

@@ -26,7 +26,7 @@ export function TodoList({ project }: { project: Project }) {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-lg font-semibold tracking-tight">Your list</h2>
+        <h2 className="text-lg font-semibold tracking-tight">Opportunities</h2>
         <p className="text-muted-foreground text-xs">
           {finishedHere.length > 0 && `${finishedHere.length} done · `}
           {active.length} to do

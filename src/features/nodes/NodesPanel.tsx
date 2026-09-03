@@ -38,9 +38,9 @@ export function NodesPanel({ project }: { project: Project }) {
     return (
       <details className="group border-border bg-card rounded-lg border">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-sm">
-          <span className="font-medium">What the scan looks for</span>
+          <span className="font-medium">Leverage Nodes</span>
           <span className="text-muted-foreground text-xs">
-            {nodeSet.nodes.length} directions across the plan
+            {nodeSet.nodes.length} nodes across the plan
           </span>
         </summary>
         <div className="border-border border-t px-4 py-4">
@@ -52,7 +52,7 @@ export function NodesPanel({ project }: { project: Project }) {
 
   return (
     <Panel
-      title="What to look for"
+      title="Leverage Nodes"
       meta={approved ? <Chip tone="done">Approved</Chip> : <Chip tone="live">Needs your review</Chip>}
     >
       <Body current={mine} later={later} stepTitle={step?.title} />
@@ -93,7 +93,7 @@ function Body({
       {laterCount > 0 && (
         <details className="border-border border-t pt-4">
           <summary className="text-muted-foreground hover:text-foreground cursor-pointer list-none text-sm underline-offset-4 hover:underline">
-            {laterCount} more saved for later steps
+            {laterCount} more on later steps
           </summary>
           <div className="mt-4 flex flex-col gap-4">
             {later.map(({ step, nodes }) => (

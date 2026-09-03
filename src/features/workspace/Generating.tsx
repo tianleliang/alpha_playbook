@@ -48,7 +48,7 @@ export function stageFor(
         phases: [
           steps ? `Reading all ${plural(steps, "step")} of your plan` : "Reading your plan",
           "Working out which steps need outside help",
-          "Turning those into things worth searching for",
+          "Turning those into leverage nodes worth searching",
         ],
       };
 
@@ -57,8 +57,8 @@ export function stageFor(
         estimateSeconds: 150,
         phases: [
           directions
-            ? `Sorting your ${plural(directions, "direction")} by how to search them`
-            : "Sorting your directions by how to search them",
+            ? `Sorting your ${plural(directions, "leverage node")} by how to search them`
+            : "Sorting your leverage nodes by how to search them",
           "Searching for programs, groups and openings",
           "Reading the official pages",
           "Checking deadlines and who is eligible",

@@ -56,20 +56,33 @@ export async function evaluateStep(projectId: string): Promise<void> {
   });
 }
 
+/**
+ * Agreeing or disagreeing with a verdict.
+ *
+ * What "agree" means depends on what was decided, which is the part that was
+ * wrong before. Agreeing with "advance" queues a transition to apply. Agreeing
+ * with "stay" or "needs more evidence" means you are carrying on with this
+ * step - there is nothing to apply, so the review is simply settled and gets
+ * out of your way.
+ */
 export async function decideReview(projectId: string, accept: boolean): Promise<void> {
   await mutate(projectId, "decide_review", (project) => {
     const review = openReview(project);
     if (!review) throw new Error("There is no review waiting.");
 
+    const wantsAdvance = review.decision === "advance";
+    const at = new Date().toISOString();
+
+    const settled: StepReview = accept
+      ? wantsAdvance
+        ? { ...review, status: "approved", approval: approvedNow() }
+        : // Nothing to apply. Its advice was "keep working", and you took it.
+          { ...review, status: "applied", approval: approvedNow(), appliedAt: at }
+      : { ...review, status: "rejected" };
+
     return {
       ...project,
-      reviews: project.reviews.map((r) =>
-        r.id !== review.id
-          ? r
-          : accept
-            ? { ...r, status: "approved" as const, approval: approvedNow() }
-            : { ...r, status: "rejected" as const },
-      ),
+      reviews: project.reviews.map((r) => (r.id === review.id ? settled : r)),
     };
   });
 }
@@ -78,10 +91,14 @@ export async function decideReview(projectId: string, accept: boolean): Promise<
  * The transition. No AI, no judgment - it reads an approved review and moves
  * the project exactly one step, or completes it.
  */
-export async function applyReview(projectId: string): Promise<void> {
+export async function applyReview(projectId: string, override = false): Promise<void> {
   await mutate(projectId, "apply_review", (project) => {
     const review = openReview(project);
-    if (!review || review.status !== "approved") {
+    if (!review) throw new Error("There is no review to apply.");
+
+    // An override is you disagreeing with a "not yet" verdict. The review is
+    // still only advisory - you have always been the one who decides.
+    if (!override && review.status !== "approved") {
       throw new Error("There is no approved review to apply.");
     }
     if (isReviewStale(project, review)) {
@@ -89,7 +106,7 @@ export async function applyReview(projectId: string): Promise<void> {
         "This review no longer matches the project - the plan or the evidence changed since it was written. Run a fresh one.",
       );
     }
-    if (review.decision !== "advance") {
+    if (!override && review.decision !== "advance") {
       throw new Error("Only an advance recommendation moves the project.");
     }
 
@@ -98,6 +115,7 @@ export async function applyReview(projectId: string): Promise<void> {
 
     const at = new Date().toISOString();
     const fromIndex = plan.steps.findIndex((s) => s.id === review.fromStepId);
+    if (fromIndex === -1) throw new Error("That review points at a step that is no longer in the plan.");
     const upcoming = plan.steps[fromIndex + 1] ?? null;
 
     const steps: Step[] = plan.steps.map((step, i) => {
@@ -116,7 +134,16 @@ export async function applyReview(projectId: string): Promise<void> {
         s.stepId === review.fromStepId ? { ...s, status: "reviewed" as const } : s,
       ),
       reviews: project.reviews.map((r) =>
-        r.id === review.id ? { ...r, status: "applied" as const, appliedAt: at } : r,
+        r.id === review.id
+          ? {
+              ...r,
+              status: "applied" as const,
+              appliedAt: at,
+              approval: r.approval ?? approvedNow(),
+              // Kept so history shows this advance was your call, not the review's.
+              overridden: override || undefined,
+            }
+          : r,
       ),
     } satisfies Project;
   });

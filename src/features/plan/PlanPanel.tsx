@@ -18,7 +18,7 @@ export function PlanPanel({ project }: { project: Project }) {
 
   return (
     <Panel
-      title="The plan"
+      title="Plan"
       meta={
         <div className="flex items-center gap-2">
           <Chip>{plan.id}</Chip>

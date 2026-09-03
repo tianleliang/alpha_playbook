@@ -299,6 +299,9 @@ export interface StepReview {
 
   approval?: Approval;
   appliedAt?: Timestamp;
+
+  /** True when you advanced despite the review saying not yet. */
+  overridden?: boolean;
 }
 
 // ---------------------------------------------------------------- project
