@@ -38,20 +38,20 @@ export function StepRail({ project }: { project: Project }) {
               {/* dot + connecting line */}
               <div className="flex flex-col items-center">
                 <span
-                  className={`mt-1 flex size-3.5 shrink-0 items-center justify-center rounded-full border-2 ${
+                  className={`mt-1 flex size-4 shrink-0 items-center justify-center rounded-full border-2 ${
                     done
                       ? "border-[var(--done)] bg-[var(--done)]"
                       : current
-                        ? "border-[var(--brand)] bg-background ring-3 ring-[var(--brand)]/25"
+                        ? "border-[var(--brand)] bg-background ring-4 ring-[var(--brand)]/20"
                         : "border-muted-foreground/25 bg-background"
                   }`}
                 >
-                  {done && <Check className="text-background size-2" strokeWidth={4} />}
+                  {done && <Check className="text-background size-2.5" strokeWidth={4} />}
                 </span>
                 {!last && (
                   <span
-                    className={`w-px flex-1 ${
-                      done ? "bg-[var(--done)]/45" : "bg-border"
+                    className={`w-[2px] flex-1 rounded-full ${
+                      done ? "bg-[var(--done)]/55" : "bg-border"
                     }`}
                     style={{ minHeight: current ? 34 : 22 }}
                   />

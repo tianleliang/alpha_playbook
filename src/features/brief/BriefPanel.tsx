@@ -12,6 +12,7 @@ export function BriefPanel({ project }: { project: Project }) {
   return (
     <Panel
       title="Brief"
+      tone={approved ? "done" : "live"}
       meta={
         approved ? (
           <Chip tone="done">Approved</Chip>

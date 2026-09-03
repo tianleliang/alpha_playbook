@@ -53,6 +53,7 @@ export function NodesPanel({ project }: { project: Project }) {
   return (
     <Panel
       title="Leverage Nodes"
+      tone={approved ? "done" : "live"}
       meta={approved ? <Chip tone="done">Approved</Chip> : <Chip tone="live">Needs your review</Chip>}
     >
       <Body current={mine} later={later} stepTitle={step?.title} />

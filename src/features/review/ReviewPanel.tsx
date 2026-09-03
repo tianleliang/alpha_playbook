@@ -26,6 +26,7 @@ export function ReviewPanel({ project }: { project: Project }) {
   return (
     <Panel
       title="Step Review"
+      tone={stale ? undefined : "live"}
       meta={
         stale ? (
           <Chip>Out of date</Chip>

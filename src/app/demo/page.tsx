@@ -5,7 +5,6 @@ import { Field, Panel } from "@/components/panel";
 import { currentStep, nodesForStep } from "@/core/flow";
 import type { Project, ScanResult } from "@/core/types";
 import { DEMO_STEPS, DemoPager, DemoProgress } from "@/features/demo/DemoNav";
-import { ThemeToggle } from "@/features/workspace/ThemeToggle";
 import { ReadOnly } from "@/features/demo/ReadOnly";
 import { IdentityCard, ResumeDocument } from "@/features/demo/ResumeDocument";
 import { Spotlight, StageNote } from "@/features/demo/Spotlight";
@@ -47,15 +46,6 @@ export default async function DemoPage({
       <div className="mx-auto flex w-full max-w-[88rem] flex-col gap-8 px-6 py-8 lg:flex-row lg:gap-10 lg:py-12">
         {/* Same rail on every stage: where you are in the demo, and the path. */}
         <aside className="flex shrink-0 flex-col gap-7 lg:sticky lg:top-12 lg:h-fit lg:w-56">
-          <Link
-            href="/welcome"
-            className="text-muted-foreground hover:text-foreground text-sm underline-offset-4 hover:underline"
-          >
-            &larr; Playbook
-          </Link>
-
-          <ThemeToggle />
-
           <div className="flex flex-col gap-1">
             <p className="text-muted-foreground font-mono text-[11px] tracking-[0.14em] uppercase">
               A saved run

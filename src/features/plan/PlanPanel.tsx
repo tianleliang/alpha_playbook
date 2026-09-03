@@ -19,6 +19,7 @@ export function PlanPanel({ project }: { project: Project }) {
   return (
     <Panel
       title="Plan"
+      tone={approved ? "done" : "live"}
       meta={
         <div className="flex items-center gap-2">
           <Chip>{plan.id}</Chip>

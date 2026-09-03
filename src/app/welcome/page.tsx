@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { ThemeToggle } from "@/features/workspace/ThemeToggle";
-
 export const metadata = {
   title: "Playbook",
   description: "Turn one goal into a plan built on what you already have.",
@@ -45,12 +43,6 @@ export default function WelcomePage() {
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-col gap-12 px-6 py-20 sm:py-28">
       <header className="flex flex-col gap-5">
-        <div className="flex items-center justify-between gap-4">
-          <p className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight">
-            Playbook
-          </p>
-          <ThemeToggle />
-        </div>
         <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
           One goal. A plan built on what you already have.
         </h1>
@@ -62,7 +54,7 @@ export default function WelcomePage() {
       <div className="flex flex-wrap gap-3">
         <Link
           href="/demo"
-          className="border-foreground bg-foreground text-background rounded-lg border px-5 py-3 text-sm font-medium"
+          className="border-[var(--brand)] bg-[var(--brand)] text-[var(--primary-foreground)] shadow-[0_2px_10px_-4px_var(--brand)] rounded-lg border px-5 py-3 text-sm font-medium"
         >
           See a real run
         </Link>

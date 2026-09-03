@@ -7,7 +7,6 @@ import { STAGE_LABEL, stageOf } from "@/core/flow";
 import { listProjects, readProfile } from "@/core/store";
 import { currentUser } from "@/lib/supabase/server";
 import { SignOutButton } from "@/features/auth/SignOutButton";
-import { ThemeToggle } from "@/features/workspace/ThemeToggle";
 import { GoalForm } from "@/features/goal/GoalForm";
 import { ProfileSummary } from "@/features/onboarding/ProfileSummary";
 
@@ -21,15 +20,9 @@ export default async function HomePage() {
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-12 px-6 py-14 sm:py-20">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <p className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight">
-          Playbook
-        </p>
-        <div className="flex items-center gap-3">
-          {provider.isMock && <Chip>{provider.name}</Chip>}
-          <ThemeToggle />
-          <SignOutButton email={user?.email} />
-        </div>
+      <header className="flex flex-wrap items-center justify-end gap-3">
+        {provider.isMock && <Chip>{provider.name}</Chip>}
+        <SignOutButton email={user?.email} />
       </header>
 
       <section className="flex flex-col gap-6">
@@ -49,7 +42,7 @@ export default async function HomePage() {
               <li key={project.id}>
                 <Link
                   href={`/project/${project.id}`}
-                  className="border-border hover:border-foreground/30 flex flex-col gap-1.5 rounded-lg border px-4 py-3.5 transition-colors"
+                  className="border-border bg-card hover:border-[var(--brand)]/50 lift flex flex-col gap-1.5 rounded-lg border px-4 py-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors"
                 >
                   <span className="font-medium">{project.title}</span>
                   <span className="text-muted-foreground text-sm">

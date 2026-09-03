@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 
 import { OnboardingForm } from "@/features/onboarding/OnboardingForm";
-import { ThemeToggle } from "@/features/workspace/ThemeToggle";
 import { hasProfile } from "@/core/store";
 
 export default async function OnboardingPage() {
@@ -10,12 +9,6 @@ export default async function OnboardingPage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-24">
       <header className="mb-12 flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-4">
-          <p className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight">
-            Playbook
-          </p>
-          <ThemeToggle />
-        </div>
         <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
           First, who are we working with?
         </h1>

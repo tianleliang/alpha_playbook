@@ -71,8 +71,8 @@
   --card-foreground: oklch(0.205 0.008 60);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.205 0.008 60);
-  --primary: oklch(0.235 0.01 60);
-  --primary-foreground: oklch(0.985 0.004 85);
+  --primary: oklch(0.5 0.115 66);
+  --primary-foreground: oklch(0.99 0.008 85);
   --secondary: oklch(0.955 0.006 80);
   --secondary-foreground: oklch(0.235 0.01 60);
   --muted: oklch(0.955 0.006 80);
@@ -114,8 +114,8 @@
   --card-foreground: oklch(0.94 0.006 85);
   --popover: oklch(0.215 0.014 260);
   --popover-foreground: oklch(0.94 0.006 85);
-  --primary: oklch(0.93 0.006 85);
-  --primary-foreground: oklch(0.195 0.013 260);
+  --primary: oklch(0.72 0.125 72);
+  --primary-foreground: oklch(0.18 0.02 60);
   --secondary: oklch(0.27 0.014 258);
   --secondary-foreground: oklch(0.94 0.006 85);
   --muted: oklch(0.27 0.014 258);
@@ -168,4 +168,48 @@
 h1, h2.display {
   font-family: var(--font-display), Georgia, serif;
   letter-spacing: -0.015em;
+}
+
+/* ---------------------------------------------------------------------------
+   Decoration. None of this carries meaning; deleting the block leaves a plain
+   but working app.
+   --------------------------------------------------------------------------- */
+
+::selection {
+  background: color-mix(in oklch, var(--brand) 26%, transparent);
+}
+
+/* Numerals line up wherever they are counted or compared. */
+.tabular,
+time,
+[data-count] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Links in reference material read as reference, not as the primary action. */
+main a:not([class*="bg-"]):not([class*="border-"]):hover {
+  color: var(--support);
+}
+
+/* A quiet dotted rule, the same idea as the mark. */
+.rule-dotted {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--muted-foreground) 45%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 6px 1px;
+  background-repeat: repeat-x;
+}
+
+/* Cards on the paper, rather than holes cut out of it. */
+@media (prefers-reduced-motion: no-preference) {
+  .lift {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+  .lift:hover {
+    transform: translateY(-1px);
+  }
 }

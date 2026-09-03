@@ -106,7 +106,7 @@ export function DemoPager({ current }: { current: number }) {
       {next ? (
         <Link
           href={`/demo?step=${next.slug}`}
-          className="border-foreground bg-foreground text-background inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-medium"
+          className="border-[var(--brand)] bg-[var(--brand)] text-[var(--primary-foreground)] shadow-[0_2px_10px_-4px_var(--brand)] inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-medium"
         >
           {next.label}
           <ArrowRight className="size-4" />
@@ -114,7 +114,7 @@ export function DemoPager({ current }: { current: number }) {
       ) : (
         <Link
           href="/login"
-          className="border-foreground bg-foreground text-background inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-medium"
+          className="border-[var(--brand)] bg-[var(--brand)] text-[var(--primary-foreground)] shadow-[0_2px_10px_-4px_var(--brand)] inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-medium"
         >
           Run your own goal
           <ArrowRight className="size-4" />
