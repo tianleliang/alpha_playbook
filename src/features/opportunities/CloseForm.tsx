@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useReadOnly } from "@/features/demo/ReadOnly";
+import { Spotlight } from "@/features/demo/Spotlight";
 
 import { closeOpportunity } from "./actions";
 
@@ -15,7 +16,16 @@ import { closeOpportunity } from "./actions";
  * Recording an outcome. Both fields are shown, but only one has to be filled -
  * the point is to capture something real, not to complete a form.
  */
-export function CloseForm({ projectId, opportunityId }: { projectId: string; opportunityId: string }) {
+export function CloseForm({
+  projectId,
+  opportunityId,
+  spotlight,
+}: {
+  projectId: string;
+  opportunityId: string;
+  /** Demo only: wraps the button in a callout explaining what it does. */
+  spotlight?: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const [notes, setNotes] = useState("");
   const [impact, setImpact] = useState("");
@@ -36,10 +46,21 @@ export function CloseForm({ projectId, opportunityId }: { projectId: string; opp
   }
 
   if (!open) {
-    return (
-      <Button size="sm" variant="outline" className="mt-3" disabled={readOnly} onClick={() => setOpen(true)}>
+    const button = (
+      <Button size="sm" variant="outline" disabled={readOnly} onClick={() => setOpen(true)}>
         Record what happened
       </Button>
+    );
+    return (
+      <div className="mt-3">
+        {spotlight ? (
+          <Spotlight label="How you move forward" note={spotlight}>
+            {button}
+          </Spotlight>
+        ) : (
+          button
+        )}
+      </div>
     );
   }
 

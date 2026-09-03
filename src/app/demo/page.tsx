@@ -1,14 +1,13 @@
 import Link from "next/link";
 
-import demoProfile from "@/demo/profile.json";
 import demoProject from "@/demo/project.json";
-import { Bullets, Field, Panel } from "@/components/panel";
+import { Field, Panel } from "@/components/panel";
 import { currentStep, nodesForStep } from "@/core/flow";
-import type { Profile, Project } from "@/core/types";
-import { BriefPanel } from "@/features/brief/BriefPanel";
-import { Annotation, InertNote } from "@/features/demo/Annotation";
+import type { Project, ScanResult } from "@/core/types";
 import { DEMO_STEPS, DemoPager, DemoProgress } from "@/features/demo/DemoNav";
 import { ReadOnly } from "@/features/demo/ReadOnly";
+import { IdentityCard, ResumeDocument } from "@/features/demo/ResumeDocument";
+import { Spotlight, StageNote } from "@/features/demo/Spotlight";
 import { NODE_LABEL, NodesPanel } from "@/features/nodes/NodesPanel";
 import { TodoList } from "@/features/opportunities/TodoList";
 import { PlanPanel } from "@/features/plan/PlanPanel";
@@ -17,7 +16,6 @@ import { ScanTriage } from "@/features/scan/ScanTriage";
 import { StepFocus } from "@/features/workspace/StepFocus";
 
 const project = demoProject as unknown as Project;
-const profile = demoProfile as unknown as Profile;
 
 export const metadata = {
   title: "Playbook - a real run",
@@ -27,10 +25,8 @@ export const metadata = {
 /**
  * The same six stages a real user walks, already generated.
  *
- * Everything here came out of the live pipeline. It is frozen so it loads
- * instantly and cannot be changed by whoever looks at it next, and annotated
- * so a stranger can tell what the system decided on its own versus what the
- * person chose.
+ * Annotated by pointing rather than explaining: a ring around the actual
+ * control, a line, and a short note. A stage should take seconds to read.
  */
 export default async function DemoPage({
   searchParams,
@@ -47,7 +43,8 @@ export default async function DemoPage({
 
   return (
     <ReadOnly>
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-8 lg:flex-row lg:gap-12 lg:py-12">
+      <div className="mx-auto flex w-full max-w-[88rem] flex-col gap-8 px-6 py-8 lg:flex-row lg:gap-10 lg:py-12">
+        {/* Same rail on every stage: where you are in the demo, and the path. */}
         <aside className="flex shrink-0 flex-col gap-7 lg:sticky lg:top-12 lg:h-fit lg:w-56">
           <Link
             href="/welcome"
@@ -64,10 +61,7 @@ export default async function DemoPage({
           </div>
 
           <DemoProgress current={index} />
-
-          <p className="text-muted-foreground text-xs leading-relaxed">
-            Every stage below was generated live. Nothing here can be changed.
-          </p>
+          <StepRail project={project} />
         </aside>
 
         <main className="flex min-w-0 flex-1 flex-col gap-6">
@@ -108,90 +102,92 @@ function Stage({ slug }: { slug: string }) {
 
 // ---------------------------------------------------------------- stages
 
-const SECTIONS: Array<{ key: keyof Profile; label: string }> = [
-  { key: "currentState", label: "Where they are" },
-  { key: "capabilities", label: "What they can do" },
-  { key: "credibilityAndAssets", label: "What they have built" },
-  { key: "relationshipsAndAccess", label: "Who they know" },
-  { key: "directionAndLogic", label: "Where they are heading" },
-  { key: "underusedLeverage", label: "Not being used yet" },
-  { key: "unknowns", label: "Still unclear" },
-];
-
 function ProfileStage() {
   return (
-    <>
-      <Annotation>
-        <p>
-          Onboarding asks for a resume and three short questions. That is the whole of it, and it
-          happens once.
-        </p>
-        <p>
-          What comes back is this: the same seven buckets every time, so later stages always know
-          where to look. Notice <strong>Not being used yet</strong> &mdash; that is the only
-          section the system infers rather than reads, and it is what makes the plan interesting
-          later.
-        </p>
-      </Annotation>
+    <div className="flex flex-col gap-6">
+      <StageNote>Upload a resume, answer three questions. This happens once.</StageNote>
 
-      <Panel title="Profile" meta={<span className="text-muted-foreground text-xs">Generated once</span>}>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {SECTIONS.map((section) => {
-            const items = profile[section.key] as string[];
-            if (!items?.length) return null;
-            return (
-              <Field key={section.key} label={section.label}>
-                <Bullets items={items} />
-              </Field>
-            );
-          })}
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+        <div className="min-w-0 flex-1">
+          <Spotlight
+            label="What you upload"
+            note="A PDF or pasted text. Everything the system knows about you starts here."
+          >
+            <ResumeDocument />
+          </Spotlight>
         </div>
-      </Panel>
 
-      <InertNote>
-        you would paste your own background here, or upload a PDF. It is never shown to anyone else.
-      </InertNote>
-    </>
+        <div className="lg:w-56 lg:shrink-0">
+          <IdentityCard />
+        </div>
+      </div>
+    </div>
   );
 }
 
 function BriefStage() {
-  return (
-    <>
-      <Annotation>
-        <p>
-          The user typed four things: what they want, how they would know they succeeded, by when,
-          and anything limiting them. Nothing else.
-        </p>
-        <p>
-          The system then searched the web and wrote this. It describes the <em>target</em>, not the
-          person &mdash; this stage is deliberately never shown the profile, so the research cannot
-          be bent to flatter whoever is reading it. Every external claim carries a source.
-        </p>
-      </Annotation>
+  const { brief } = project;
 
-      <BriefPanel project={project} />
-    </>
+  return (
+    <div className="flex flex-col gap-6">
+      <StageNote>Four fields in. The system researches the target and reports back.</StageNote>
+
+      <Spotlight
+        label="What they typed"
+        note="Only this. Nothing about the person is sent to this stage, so the research describes the target rather than flattering whoever asked."
+      >
+        <Panel title="The goal">
+          <div className="flex flex-col gap-5">
+            <Field label="Objective">
+              <p className="text-[15px] leading-relaxed">{brief.objective}</p>
+            </Field>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Field label="Done when">
+                <p className="text-sm leading-relaxed">{brief.success}</p>
+              </Field>
+              <Field label="By">
+                <p className="text-sm leading-relaxed">{brief.deadline}</p>
+              </Field>
+            </div>
+          </div>
+        </Panel>
+      </Spotlight>
+
+      <Spotlight
+        label="What came back"
+        side="below"
+        note={
+          <>
+            A researched brief: how this target actually works, who gets in, and what it rewards,
+            every claim carrying a source. <Link href="/demo?step=plan" className="underline underline-offset-2">The plan</Link>{" "}
+            is built from it next.
+          </>
+        }
+      >
+        <Panel title="Brief" meta={<span className="text-muted-foreground text-xs">Researched</span>}>
+          <Field label="What this target is">
+            <p className="text-sm leading-relaxed">{brief.targetSummary}</p>
+          </Field>
+        </Panel>
+      </Spotlight>
+    </div>
   );
 }
 
 function PlanStage() {
   return (
-    <>
-      <Annotation>
-        <p>
-          Now the two are combined: the researched brief, and the profile from the first screen.
-          This stage has no web access &mdash; it is reasoning, not searching.
-        </p>
-        <p>
-          Open a step and look at the line under the goal. That is the specific advantage the step
-          uses. If a plan could be handed to anyone else unchanged, it has failed, and that line is
-          where you check.
-        </p>
-      </Annotation>
+    <div className="flex flex-col gap-6">
+      <StageNote>
+        The brief and the resume, combined. No searching here &mdash; this stage reasons.
+      </StageNote>
 
-      <PlanPanel project={project} />
-    </>
+      <Spotlight
+        label="Read this line"
+        note="Every step names the specific advantage it uses. If a plan could be handed to someone else unchanged, it failed."
+      >
+        <PlanPanel project={project} />
+      </Spotlight>
+    </div>
   );
 }
 
@@ -200,20 +196,10 @@ function NodesStage() {
   const forStep = step ? nodesForStep(project, step.id).length : 0;
 
   return (
-    <>
-      <Annotation>
-        <p>
-          Before searching for anything, the system decides <em>what kinds of things</em> are worth
-          searching for on each step. These are directions, not results.
-        </p>
-        <p>
-          There are {project.nodeSet?.nodes.length} across the plan and {forStep} on the current
-          step, sorted into people, communities, programs, things to build, and openings. A step
-          with none is a valid answer &mdash; some steps have nothing external to find.
-        </p>
-      </Annotation>
-
-      <NodesPanel project={project} />
+    <div className="flex flex-col gap-6">
+      <StageNote>
+        Before searching, the system decides what kinds of things are worth searching for.
+      </StageNote>
 
       <div className="flex flex-wrap gap-2">
         {Object.values(NODE_LABEL).map((label) => (
@@ -225,96 +211,84 @@ function NodesStage() {
           </span>
         ))}
       </div>
-    </>
+
+      <Spotlight
+        label={`${forStep} on this step`}
+        note="Directions, not results. A step with none is a valid answer - some have nothing external to find."
+      >
+        <NodesPanel project={project} />
+      </Spotlight>
+    </div>
   );
 }
 
+/** A few results, not the full sixteen. The point is the shape of the decision. */
 function ScanStage() {
   const scan = project.scans[0];
   const step = currentStep(project);
-  const saved = scan.results.filter((r) => r.status === "saved").length;
+
+  const trimmed: ScanResult[] = [
+    ...scan.results.filter((r) => r.status === "saved").slice(0, 3),
+    ...scan.results.filter((r) => r.status !== "saved").slice(0, 2),
+  ];
 
   const groups = [
     ...(step
       ? nodesForStep(project, step.id).map((node) => ({
           label: node.phrase,
           hint: NODE_LABEL[node.nodeType],
-          results: scan.results.filter((r) => r.nodeId === node.id),
+          results: trimmed.filter((r) => r.nodeId === node.id),
         }))
       : []),
-    {
-      label: "Also worth a look",
-      results: scan.results.filter((r) => r.isWildcard),
-    },
+    { label: "Also worth a look", results: trimmed.filter((r) => r.isWildcard) },
   ].filter((g) => g.results.length > 0);
 
   return (
-    <>
-      <Annotation>
-        <p>
-          This is a real search, run against the current step only. It returned{" "}
-          {scan.results.length} results with live links and real deadlines.
-        </p>
-        <p>
-          The person kept <strong>{saved}</strong> &mdash; shown ticked and highlighted below. In
-          the live app you tick what you would genuinely act on and press one button; everything
-          else is set aside without you having to refuse it one at a time.
-        </p>
-      </Annotation>
+    <div className="flex flex-col gap-6">
+      <StageNote>
+        A real web search against the current step. Live links, real deadlines. Showing{" "}
+        {trimmed.length} of {scan.results.length}.
+      </StageNote>
 
-      <ScanTriage projectId="demo" scan={scan} groups={groups} />
-
-      <InertNote>
-        the ticked results become your list on the next screen, each one keeping a trail back to the
-        scan and the direction that found it.
-      </InertNote>
-    </>
+      <Spotlight
+        label="One decision"
+        note="Green ones were kept. You tick what you would act on and press one button - the rest is set aside without you refusing it one at a time."
+      >
+        <ScanTriage projectId="demo" scan={{ ...scan, results: trimmed }} groups={groups} />
+      </Spotlight>
+    </div>
   );
 }
 
 function DashboardStage() {
-  const step = currentStep(project);
   const steps = project.plan?.steps ?? [];
+  const step = currentStep(project);
   const nextUp = steps[steps.findIndex((s) => s.id === step?.id) + 1];
 
   return (
-    <>
-      <Annotation>
-        <p>
-          This is where you live once a goal is running. The step you are on, why it matters, and
-          the things you chose to do about it.
-        </p>
-        <p>
-          Nothing here nags you to log anything. When you actually finish something, you record what
-          happened and what changed &mdash; and only then does the system judge whether this step is
-          genuinely done.
-        </p>
-      </Annotation>
+    <div className="flex flex-col gap-6">
+      <StageNote>Where you live once a goal is running.</StageNote>
 
-      <div className="border-border rounded-xl border p-5 lg:hidden">
-        <StepRail project={project} />
-      </div>
+      <Spotlight
+        label="Why this step"
+        note="The outcome, the advantage it uses, and what would count as done. No task is orphaned from its reason."
+      >
+        <div className="border-border bg-card rounded-lg border p-5">
+          <StepFocus project={project} />
+        </div>
+      </Spotlight>
 
-      <StepFocus project={project} />
-      <TodoList project={project} />
-
-      <Annotation label="What happens next">
-        <p>
-          Finish one of these and press <strong>Record what happened</strong>. The system reads only
-          the finished work on this step &mdash; never your profile, because whether a step is done
-          is a question about evidence, not about how capable you are &mdash; and returns one of
-          four verdicts.
-        </p>
-        <p>
-          If it says you are ready, you approve and{" "}
-          {nextUp ? <strong>{nextUp.title}</strong> : <strong>the next step</strong>} becomes
-          current. If it says not yet, you can disagree and move on anyway. It advises; you decide.
-        </p>
-      </Annotation>
-
-      <InertNote>
-        these buttons are inert here so the saved run stays the same for the next person.
-      </InertNote>
-    </>
+      <TodoList
+        project={project}
+        spotlight={
+          <>
+            This is how you move forward. Finish something, then log what happened and what it
+            changed. That evidence is what the system reads to decide whether this step is genuinely
+            done &mdash; and if it agrees, {nextUp ? <strong>{nextUp.title}</strong> : "the next step"}{" "}
+            becomes current. If it says not yet, you can disagree and move on anyway.
+          </>
+        }
+      />
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import { activeOpportunities } from "@/core/flow";
 import { hostnameOf } from "@/core/links";
 import type { Opportunity, Project } from "@/core/types";
+import type { ReactNode } from "react";
 
 import { CloseForm } from "./CloseForm";
 
@@ -14,7 +15,14 @@ import { CloseForm } from "./CloseForm";
  * Items carry across steps. One from an earlier step stays here, labelled, so
  * work is never silently dropped when the plan moves on.
  */
-export function TodoList({ project }: { project: Project }) {
+export function TodoList({
+  project,
+  spotlight,
+}: {
+  project: Project;
+  /** Demo only: a callout on the first item, explaining how progress works. */
+  spotlight?: ReactNode;
+}) {
   const active = activeOpportunities(project);
   const currentStepId = project.currentStepId;
   const finishedHere = project.opportunities.filter(
@@ -35,12 +43,13 @@ export function TodoList({ project }: { project: Project }) {
 
       {active.length > 0 && (
         <ul className="flex flex-col gap-3">
-          {active.map((item) => (
+          {active.map((item, i) => (
             <Item
               key={item.id}
               projectId={project.id}
               item={item}
               fromEarlierStep={item.stepId !== currentStepId}
+              spotlight={i === 0 ? spotlight : undefined}
             />
           ))}
         </ul>
@@ -77,10 +86,12 @@ function Item({
   projectId,
   item,
   fromEarlierStep,
+  spotlight,
 }: {
   projectId: string;
   item: Opportunity;
   fromEarlierStep: boolean;
+  spotlight?: ReactNode;
 }) {
   return (
     <li className="border-border rounded-lg border p-4">
@@ -118,7 +129,7 @@ function Item({
         </ul>
       )}
 
-      <CloseForm projectId={projectId} opportunityId={item.id} />
+      <CloseForm projectId={projectId} opportunityId={item.id} spotlight={spotlight} />
     </li>
   );
 }
