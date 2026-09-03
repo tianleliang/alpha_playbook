@@ -137,17 +137,26 @@ function Row({
   locked: boolean;
 }) {
   const decided = result.status !== "proposed";
+  const kept = result.status === "saved";
+  // A kept result reads as kept, not as greyed-out. Ignored ones recede.
+  const shown = checked || kept;
 
   return (
     <li>
       <label
-        className={`border-border flex cursor-pointer gap-3 rounded-lg border p-4 transition-colors ${
-          checked ? "border-foreground/40 bg-foreground/[0.03]" : "hover:border-foreground/20"
-        } ${decided ? "cursor-default opacity-50" : ""}`}
+        className={`flex gap-3 rounded-lg border p-4 transition-colors ${
+          kept
+            ? "border-emerald-500/50 bg-emerald-500/[0.06]"
+            : checked
+              ? "border-foreground/40 bg-foreground/[0.03]"
+              : "border-border hover:border-foreground/20"
+        } ${decided ? "cursor-default" : "cursor-pointer"} ${
+          decided && !kept ? "opacity-45" : ""
+        }`}
       >
         <input
           type="checkbox"
-          checked={checked}
+          checked={shown}
           onChange={onToggle}
           disabled={locked}
           className="sr-only"
@@ -155,10 +164,14 @@ function Row({
         <span
           aria-hidden
           className={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded border ${
-            checked ? "border-foreground bg-foreground text-background" : "border-muted-foreground/40"
+            kept
+              ? "border-emerald-600 bg-emerald-600 text-white dark:border-emerald-500 dark:bg-emerald-500"
+              : checked
+                ? "border-foreground bg-foreground text-background"
+                : "border-muted-foreground/40"
           }`}
         >
-          {checked && <Check className="size-3" strokeWidth={3} />}
+          {shown && <Check className="size-3" strokeWidth={3} />}
         </span>
 
         <span className="flex min-w-0 flex-col gap-1.5">
@@ -167,7 +180,10 @@ function Row({
               {KIND[result.resultType]}
             </span>
             <span>{result.confidence} confidence</span>
-            {decided && <span>{result.status}</span>}
+            {kept && (
+              <span className="font-medium text-emerald-700 dark:text-emerald-500">kept</span>
+            )}
+            {decided && !kept && <span>set aside</span>}
           </span>
 
           <span className="leading-snug font-medium">{result.title}</span>
