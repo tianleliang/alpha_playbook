@@ -1,0 +1,26 @@
+# Render blueprint. Point Render at this repo and it reads everything below.
+#
+# A plain Node web service, not serverless: the AI stages hold a connection for
+# up to three minutes, which is longer than most function platforms allow.
+services:
+  - type: web
+    name: playbook
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /welcome
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: PLAYBOOK_PROVIDER
+        value: openai
+      # Set these in the Render dashboard. They never live in the repo.
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
