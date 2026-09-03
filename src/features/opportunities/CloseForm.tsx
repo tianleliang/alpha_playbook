@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
+import { useReadOnly } from "@/features/demo/ReadOnly";
+
 import { closeOpportunity } from "./actions";
 
 /**
@@ -19,8 +21,10 @@ export function CloseForm({ projectId, opportunityId }: { projectId: string; opp
   const [impact, setImpact] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, start] = useTransition();
+  const readOnly = useReadOnly();
 
   function close(action: "finish" | "deactivate") {
+    if (readOnly) return;
     setError(null);
     start(async () => {
       try {
@@ -33,7 +37,7 @@ export function CloseForm({ projectId, opportunityId }: { projectId: string; opp
 
   if (!open) {
     return (
-      <Button size="sm" variant="outline" className="mt-3" onClick={() => setOpen(true)}>
+      <Button size="sm" variant="outline" className="mt-3" disabled={readOnly} onClick={() => setOpen(true)}>
         Record what happened
       </Button>
     );

@@ -6,6 +6,8 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { NextAction } from "@/core/flow";
 
+import { useReadOnly } from "@/features/demo/ReadOnly";
+
 import { Generating, stageFor } from "./Generating";
 import { runStageAction } from "./actions";
 
@@ -28,8 +30,10 @@ export function NextActionCard({
 }) {
   const [error, setError] = useState<string | null>(null);
   const [pending, start] = useTransition();
+  const readOnly = useReadOnly();
 
   function run() {
+    if (readOnly) return;
     setError(null);
     start(async () => {
       try {
@@ -38,6 +42,15 @@ export function NextActionCard({
         if (e instanceof Error && !e.message.includes("NEXT_REDIRECT")) setError(e.message);
       }
     });
+  }
+
+  // No label means there is nothing to press - just a note about what is next.
+  if (!action.label) {
+    return (
+      <section className="border-border bg-card rounded-xl border p-4">
+        <p className="text-muted-foreground text-sm leading-relaxed">{action.why}</p>
+      </section>
+    );
   }
 
   if (pending && SLOW.has(action.action)) {
@@ -57,7 +70,7 @@ export function NextActionCard({
         <p className="text-base leading-snug font-medium">{action.why}</p>
         {error && <p className="text-destructive mt-1 text-sm">{error}</p>}
       </div>
-      <Button size="lg" onClick={run} disabled={pending} className="shrink-0">
+      <Button size="lg" onClick={run} disabled={pending || readOnly} className="shrink-0">
         {pending ? "Working..." : action.label}
         {!pending && <ArrowRight className="size-4" />}
       </Button>

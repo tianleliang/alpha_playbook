@@ -4,13 +4,14 @@
  * Runs before every page. Two jobs:
  *   1. Refresh the auth token, so a session does not silently expire while
  *      someone is mid-flow.
- *   2. Send signed-out visitors to /login, and signed-in visitors away from it.
+ *   2. Send signed-out visitors to the landing page, and signed-in visitors
+ *      away from the login form.
  */
 
 import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
-const PUBLIC_PATHS = ["/login", "/auth"];
+const PUBLIC_PATHS = ["/login", "/auth", "/demo", "/welcome"];
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -40,7 +41,7 @@ export async function middleware(request: NextRequest) {
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = "/welcome";
     // Come back to where they were trying to go once they are in.
     if (path !== "/") url.searchParams.set("next", path);
     return NextResponse.redirect(url);

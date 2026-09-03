@@ -1,0 +1,958 @@
+{
+  "id": "goal-admission-to-a-top-us-tech-university-via-ed-766140d7",
+  "plan": {
+    "id": "plan-v1",
+    "risks": [
+      "Over-scoping the toolkit into a full platform; keep it to auton selector + PID/odometry + lessons.",
+      "Outside endorsements may be disallowed or ignored; verify before asking Amy/Ted to write anything.",
+      "Adoption slower than expected; mitigate by personally onboarding 2–3 teams you already tutor to guarantee metrics.",
+      "Essay drift into jargon; keep technical but anchored in decisions and outcomes admissions can understand.",
+      "Time compression with schoolwork; if squeezed, skip the workshop and do 1:1 installs with 3 teams to get the same metrics."
+    ],
+    "steps": [
+      {
+        "id": "step-01",
+        "goal": "Choose a single ED target and commit your essay spine: “I turn competitive robotics into community infrastructure.”",
+        "title": "Lock ED school and the narrative spine you’ll prove",
+        "status": "current",
+        "dateRange": "September 2-5, 2026",
+        "asymmetricMove": "Use Terrence Liang (Penn) for a 30-minute call to sanity-check Penn vs. other ED options and align supplements to that school’s ethos before writing.",
+        "importantMoves": [
+          "Decide ED school (e.g., Penn SEAS, CMU SCS, Cornell Engineering, Northwestern), based on supplement fit and where a visible toolkit with adoption reads strongest.",
+          "Outline the 3-beat story: VEX coder → built VEX FastStart for peers → scaled through CSO/TSA with measured gains.",
+          "Inventory ED requirements (recs allowed, optional portfolio link, testing policy) and set hard submit date 3–4 days before the deadline."
+        ],
+        "externalLeverage": [
+          "Terrence Liang (UPenn) to pressure-test Penn ED fit and review prompt interpretations.",
+          "Your ZCHS college counselor to confirm school policy on additional recommendations and update letters."
+        ],
+        "completionSignals": [
+          "ED school selected; supplements mapped with word counts and due dates.",
+          "Calendar holds set for essays, recs, and toolkit milestones."
+        ]
+      },
+      {
+        "id": "step-02",
+        "goal": "Publish a minimal, adoptable C++ toolkit with docs and a 3‑minute demo that gets a novice team to a working autonomous in under 90 minutes.",
+        "title": "Turn your existing VEX code + lessons into VEX FastStart (shippable kit)",
+        "status": "pending",
+        "dateRange": "September 5-18, 2026",
+        "asymmetricMove": "Build from your proven VEX C++ and tutoring curriculum so you’re packaging, not inventing—fast to ship, immediately credible.",
+        "importantMoves": [
+          "Scope FastStart to 3 components: (1) Auton routine selector, (2) PID + odometry template with sane defaults, (3) 6-lesson quickstart you already teach.",
+          "Create a clean GitHub repo (MIT license), QuickStart.md, and a 3‑minute demo video showing setup and a basic run.",
+          "Write a 1‑page Impact Brief template with two metrics you can capture in pilots: time-to-first-auton, auton points gained in scrimmage."
+        ],
+        "externalLeverage": [
+          "VEX Forum and TSA Indiana channels are primed audiences who understand C++/VEX; post only after repo is live.",
+          "Project Next Vision clients as first adopters for fast feedback."
+        ],
+        "completionSignals": [
+          "Public GitHub repo with docs and demo video link.",
+          "Impact Brief template ready to send to testers."
+        ]
+      },
+      {
+        "id": "step-03",
+        "goal": "Get 8–12 students (3–5 teams) to install and run FastStart, capturing before/after metrics and 3 testimonials.",
+        "title": "Seed adoption and collect proof with a 2-hour ‘Auton Saturday’ mini-workshop",
+        "status": "pending",
+        "dateRange": "September 16-24, 2026",
+        "asymmetricMove": "Use CSO/TSA lists and your tutoring clients to fill the room in days; you already have the space, trust, and cadence to run it smoothly.",
+        "importantMoves": [
+          "Invite list: CSO members, TSA chapter teams, your 10+ tutoring clients; cap at ~12 students for hands-on success.",
+          "Run a tight agenda: 20‑min overview, 60‑min guided build, 20‑min scrimmage to measure auton points, 20‑min feedback + quotes.",
+          "Collect metrics and short quotes on paper or a Google Form; secure permission to use team names in the repo README."
+        ],
+        "externalLeverage": [
+          "TSA advisor to reserve robotics room and vouch for attendance.",
+          "ZCHS announcements/CSO newsletter for targeted RSVPs (not public blasting)."
+        ],
+        "completionSignals": [
+          "At least 3 teams complete a working auton with FastStart during the session.",
+          "You have 2–3 quantified before/after metrics and 3+ testimonial quotes."
+        ]
+      },
+      {
+        "id": "step-04",
+        "goal": "Ship a crisp public package: updated README with metrics, a 90‑second demo cut, and a short reflection tying engineering choices to systems thinking.",
+        "title": "Make the proof legible for admissions and teams",
+        "status": "pending",
+        "dateRange": "September 22-30, 2026",
+        "asymmetricMove": "Your debate background lets you write a tight reflection that reads like uncommon judgment for a HS engineer.",
+        "importantMoves": [
+          "Update README with adoption numbers, team names (with consent), and quotes; add an Impact section up top.",
+          "Publish a 90‑second demo cut focused on outcomes (first auton in 53 minutes; +10 auton points in scrimmage).",
+          "Write a 600–800 word reflection: what PID/odometry tradeoffs you made, how you teach them, and how that mirrors decisions in larger systems."
+        ],
+        "externalLeverage": [
+          "VEX Forum post linking to repo after testimonials are in; ask for 1–2 code reviews from known coaches/upperclassmen for polish."
+        ],
+        "completionSignals": [
+          "Repo shows metrics and testimonials; demo video is live and linked.",
+          "Reflection is published (repo docs or personal site) and ready to cite in essays."
+        ]
+      },
+      {
+        "id": "step-05",
+        "goal": "Secure letters that describe your initiative and user impact, not just talent.",
+        "title": "Lock recommenders and aim their letters at what you just proved",
+        "status": "pending",
+        "dateRange": "October 1-10, 2026",
+        "asymmetricMove": "Give your TSA advisor and VEX coach a one-page Impact Brief so they can cite concrete adoption and leadership they witnessed.",
+        "importantMoves": [
+          "Confirm recommenders: STEM teacher, TSA advisor or VEX coach; provide Impact Brief + bullet list of traits to emphasize (initiative, teaching peers, measurable outcomes).",
+          "Ask counselor to mention $20k fund stewardship + event ops paired with technical leadership.",
+          "If your ED school allows, line up one concise outside endorsement (Amy Francetic or Ted Vatsndal): 4–6 sentences on initiative, follow‑through, and clarity in asking for feedback."
+        ],
+        "externalLeverage": [
+          "Amy Francetic or Ted Vatsndal for a short outside note only if your ED school permits additional recommendations or Additional Info quotes.",
+          "ZCHS counseling office to clarify caps on external letters."
+        ],
+        "completionSignals": [
+          "Recommenders confirm receipt of materials and deadlines; outside endorser drafted (if allowed).",
+          "At least one recommender references FastStart impact in a preview or email acknowledgement."
+        ]
+      },
+      {
+        "id": "step-06",
+        "goal": "Finish Common App personal statement and ED supplements that anchor on FastStart + outreach, with live links.",
+        "title": "Write ED essays that point to real links and decisions you own",
+        "status": "pending",
+        "dateRange": "October 5-20, 2026",
+        "asymmetricMove": "Use Terrence Liang to red-team Penn/target supplements for tone and specificity common to accepted essays at that school.",
+        "importantMoves": [
+          "Draft PS framing: competitions sharpened you; building FastStart multiplied impact; measurable peer outcomes; closing with how ED school’s ecosystem is the surface you’ll scale on.",
+          "Draft ED supplements that reference the repo, demo, and reflection; include 1–2 sentences on why the school’s labs/clubs map to expanding FastStart (do not promise new products).",
+          "Have Terrence mark what reads generic; fix with concrete nouns (team names, metrics, file names) and remove buzzwords.",
+          "QA links (GitHub, video) and file naming; export a clean PDF of the Impact Brief for counselor/Additional Info if space permits."
+        ],
+        "externalLeverage": [
+          "Terrence Liang for school-specific tone and prompts.",
+          "School writing center or trusted English teacher for line edits without sanding off your technical specificity."
+        ],
+        "completionSignals": [
+          "Essays hit word counts, include 1–2 live links, and survive two external reads (Terrence + one teacher).",
+          "All supplements are finalized in your ED portal drafts."
+        ]
+      },
+      {
+        "id": "step-07",
+        "goal": "ED application submitted 3–10 days before deadline; light plan to maintain project momentum and send an update only if material.",
+        "title": "Submit a clean, link-checked ED application early and set a light post-submit cadence",
+        "status": "pending",
+        "dateRange": "October 20-28, 2026",
+        "asymmetricMove": "You can plausibly grow adoption fast via your existing channels; an optional update with real numbers is credible if policies allow.",
+        "importantMoves": [
+          "Final portal QA: transcripts, recs received, activities list emphasizes FastStart, CSO scale, TSA leadership, fund stewardship.",
+          "Submit ED by Oct 28. Calendar two micro-windows to answer forum questions on your repo and log new adopters.",
+          "If allowed and meaningful (e.g., adoption jumps to 10+ teams), prepare a short update note mid-November via counselor."
+        ],
+        "externalLeverage": [
+          "Admissions portal checklists for receipt statuses.",
+          "VEX Forum and CSO newsletter as light-touch distribution to sustain adoption without heavy new builds."
+        ],
+        "completionSignals": [
+          "ED app shows ‘submitted’; confirmation saved.",
+          "Repo shows at least one post-submit improvement or Q&A response; adoption log maintained."
+        ]
+      }
+    ],
+    "notNow": [
+      "Starting a brand-new startup or research project pre-ED.",
+      "Learning a new programming stack (e.g., web/app/ML) for this cycle.",
+      "Chasing new competitions this fall; focus on visible, user-facing proof you control.",
+      "Running large public hackathons that consume weekends without clear adoption metrics.",
+      "Spraying generic outreach to strangers; prioritize warm CSO/TSA/tutoring channels."
+    ],
+    "status": "approved",
+    "keyGaps": [
+      "No declared ED school yet; supplements and narrative can’t be targeted until this is chosen.",
+      "Flagship project proof isn’t public, linkable, or measured; needs clear repo, demo, and adoption metrics before mid-October.",
+      "Recommender alignment may be generic unless briefed with targeted talking points tied to the toolkit’s user impact.",
+      "Unclear testing status or school-specific requirements; quick audit needed to avoid technical disqualifiers."
+    ],
+    "version": 1,
+    "approval": {
+      "approvedAt": "2026-09-02T21:35:58.745Z",
+      "approvedBy": "you"
+    },
+    "createdAt": "2026-09-02T21:34:42.409Z",
+    "firstMove": "Tonight: text your TSA advisor and VEX coach to ask for LORs and a room for ‘Auton Saturday’ on Sept 21, then create the GitHub repo ‘VEX-FastStart’ with a placeholder README outlining the three components you’ll ship by Sept 18.",
+    "memoryBasis": [
+      {
+        "fact": "Cofounder of Careers in STEM Outreach (CSO) with 150+ active members.",
+        "sourceLinks": [
+          "user-profile"
+        ],
+        "strategicImplication": "Immediate distribution for pilots and testimonials; can convert private community into public adoption numbers quickly."
+      },
+      {
+        "fact": "Lead Coder for VEX Robotics (C++, 5+ hrs/week) and VEX Tournament Champion.",
+        "sourceLinks": [
+          "user-profile"
+        ],
+        "strategicImplication": "Existing code can be cleaned and open-sourced as a kit—high credibility with VEX teams; low build time versus net-new project."
+      },
+      {
+        "fact": "10+ paid robotics tutoring clients via Project Next Vision and 5+ geometry students.",
+        "sourceLinks": [
+          "user-profile"
+        ],
+        "strategicImplication": "Warm testers and first success stories for the toolkit; can measure time-to-first-auton and points gained."
+      },
+      {
+        "fact": "Debate awards in tech policy topics (biometrics, CRISPR, BCIs).",
+        "sourceLinks": [
+          "user-profile"
+        ],
+        "strategicImplication": "Essay voice can credibly connect engineering choices to real-world tradeoffs—distinctive framing for ED essays."
+      },
+      {
+        "fact": "Relationships: Amy Francetic (climate VC), Ted Vatsndal (MISO Energy exec), and Terrence Liang (UPenn student).",
+        "sourceLinks": [
+          "user-profile"
+        ],
+        "strategicImplication": "Use Terrence for school-specific supplement tuning; Amy/Ted for brief endorsement or mentoring note to validate initiative, not as time-consuming projects."
+      },
+      {
+        "fact": "Managed $20,000+ Student Council funds; organized community events.",
+        "sourceLinks": [
+          "user-profile"
+        ],
+        "strategicImplication": "Operations proof pairs well with a lightweight, well-run rollout (mini-workshop) to show you scale what you build."
+      }
+    ],
+    "profileHash": "cf9dcd58",
+    "asymmetricThesis": [
+      "Turn your existing VEX C++ codebase and tutoring curriculum into a public, adoptable toolkit (VEX FastStart) and seed it through CSO/TSA/tutoring for immediate, countable users.",
+      "Use Terrence Liang (Penn) to shape ED supplements to a single school’s ethos, while your artifact provides the hard evidence those essays point to.",
+      "Leverage Amy Francetic and/or Ted Vatsndal for a tightly scoped, one-paragraph endorsement or quote about your initiative (only if your ED school accepts additional recommendations or quotes in Additional Info).",
+      "Package Student Council $20k operations into a brief that proves you already manage resources and teams—paired with the toolkit’s rollout, this reads as “builder who ships and scales.”",
+      "Use your debate background to publish a concise technical-reflection piece that links engineering decisions in the toolkit (PID/odometry tradeoffs) to systems thinking—unique angle most HS applicants won’t have."
+    ],
+    "strategicDiagnosis": [
+      "ED odds improve when your application shows shipped impact and a tight narrative; you have raw fuel (VEX wins, TSA leadership, CSO distribution, tutoring clients) but the proof isn’t yet packaged into a visible, sharable artifact tied to users.",
+      "Your warm access to an energy VC (Amy Francetic) and a grid executive (Ted Vatsndal) is rare for a high school applicant; these should be used narrowly (precision endorsements and reality-checks), not as new, heavy projects pre-ED.",
+      "You can reach users instantly: 150+ CSO members, TSA/VEX teams, and 10+ tutoring clients. Converting this private reach into public adoption metrics is the fastest path to non-generic impact.",
+      "Debate accolades on tech policy are distinctive; they should frame essays as “I turn competitive tech into community infrastructure,” connecting policy judgment to practical tools you built for peers.",
+      "Risk right now is time: senior fall. Any plan that starts a net-new startup, new stack, or research track is likely to dilute essay quality and adoption metrics before Nov 1."
+    ]
+  },
+  "brief": {
+    "title": "Admission to a top US tech university via ED",
+    "status": "approved",
+    "sources": [],
+    "success": "Offer of admission from a target top US tech university.",
+    "approval": {
+      "approvedAt": "2026-09-02T21:33:27.169Z",
+      "approvedBy": "you"
+    },
+    "deadline": "Within a year (by Early decision)",
+    "objective": "Gain admission to a highly selective US university known for strong technology programs, while building a portfolio of meaningful, well-scoped tech projects that showcase problem-solving character by the time of matriculation.",
+    "constraints": "None stated.",
+    "knownUnknowns": [
+      "Which specific universities are on the target list for Early Decision and why they fit.",
+      "Whether standardized testing, portfolios, or specific supplements are required for the chosen schools.",
+      "Which projects will be prioritized, what impact metrics will be tracked, and how they will be documented by application time.",
+      "Availability of recommenders who can speak to problem-solving character and project impact.",
+      "Any financial aid considerations that could influence ED versus EA/RD strategy.",
+      "Intended major or program (e.g., CS, EECS, data science) and any program-specific requirements."
+    ],
+    "targetSummary": "The target is admission to a highly selective US university with strong technology programs. Applications are typically reviewed holistically, considering academic record, course rigor, extracurricular impact, essays, recommendations, and evidence of initiative in technology through substantive projects or research. Early Decision is an earlier application round offered by some universities and is often binding; your timeline aligns to applying in that round.",
+    "currentMechanics": [
+      "Holistic application review across academics, rigor, activities, essays, and recommendations, with attention to demonstrated initiative in tech through projects or research. [inferred]",
+      "Early Decision is an early, often binding round at some universities; applicants submit sooner than Regular Decision and receive earlier results. [inferred]",
+      "Evidence of impact and authenticity in projects can be considered within extracurriculars and essays. [inferred]"
+    ],
+    "selectionSignals": [
+      "Shipped or deployed projects with users or measurable outcomes. [inferred]",
+      "Clear, coherent narrative in essays connecting projects to problem-solving character. [inferred]",
+      "Strong recommendations that attest to initiative, rigor, and collaborative ability. [inferred]",
+      "Recognition such as research contributions, competitions, or open-source impact (if applicable). [inferred]"
+    ],
+    "eligibilityAndFit": [
+      "Strong foundational coursework in math, computer science, and related sciences. [inferred]",
+      "Sustained creation of substantive, independently driven tech projects (not just coursework). [inferred]",
+      "Ability to articulate problem-solving approach and real-world impact of projects. [inferred]",
+      "Willingness to commit to a first-choice school if applying Early Decision. [inferred]"
+    ]
+  },
+  "scans": [
+    {
+      "id": "scan-2026-09-02",
+      "runAt": "2026-09-02T21:39:16.680Z",
+      "status": "proposed",
+      "stepId": "step-01",
+      "results": [
+        {
+          "id": "result-01",
+          "lane": "soft",
+          "title": "Penn/Cornell/Northwestern student insiders in engineering—fastest official routes",
+          "nodeId": "node-01-01",
+          "scanId": "scan-2026-09-02",
+          "status": "saved",
+          "stepId": "step-01",
+          "timing": "Book today/tomorrow; sessions run ~1 hr in ET.",
+          "summary": "Target current first/second‑year engineering students via each school’s sanctioned live‑student programming: Penn Admissions’ student‑led Live Chats and Digging Deeper panels (register on the Virtual Information Sessions portal). Open with: “I’m choosing ED this week; what essay angles actually resonate in SEAS/McCormick/Cornell Eng supplements?” Capture 3 takeaways to compare schools’ culture of ‘build and share.’",
+          "nodeType": "people",
+          "decidedAt": "2026-09-02T21:49:38.687Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "search_strategy",
+          "sourceLinks": [
+            "https://key.admissions.upenn.edu/portal/virtual-info"
+          ],
+          "suggestedAction": "Register for a Penn student live chat; prepare two precise FastStart‑focused questions and ask how applicants effectively referenced repos/videos in SEAS supplements."
+        },
+        {
+          "id": "result-02",
+          "lane": "soft",
+          "title": "Northwestern’s new online engagement + ‘Cat Chats’ as a proxy for recent voices",
+          "nodeId": "node-01-01",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Schedule within 48 hours.",
+          "summary": "Use Northwestern’s online engagement platform (noted in counselor update) and alumni ‘’Cat Chats’ to get recent, candid perspectives on McCormick culture and ED supplements. Ask for: 1) what made optional responses feel ‘Northwestern‑specific’; 2) whether linking GitHub/video helped. Limit to 15 minutes.",
+          "nodeType": "people",
+          "decidedAt": "2026-09-02T21:50:28.188Z",
+          "confidence": "medium",
+          "isWildcard": false,
+          "resultType": "search_strategy",
+          "sourceLinks": [
+            "https://admissions.northwestern.edu/docs/fall_2025_counselor_update.pdf",
+            "https://admissions.northwestern.edu/visit/experience/alumni-conversations.html"
+          ],
+          "suggestedAction": "Request a ‘Cat Chat’ with someone who studied CS/ME/ECE; send a 3‑line brief on FastStart and one question about tying hands‑on impact to McCormick’s design ethos."
+        },
+        {
+          "id": "result-03",
+          "lane": "soft",
+          "title": "LinkedIn pinpoint for recent ED admits in engineering",
+          "nodeId": "node-01-01",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "1 hour tonight.",
+          "summary": "Run targeted LinkedIn searches: “University of Pennsylvania School of Engineering and Applied Science” + filters Class of 2029/2030 + keywords “Admissions Ambassador,” “Tour Guide,” or “Student Panelist.” Repeat for “Cornell Duffield College of Engineering” and “Northwestern McCormick.” Prioritize students listed on official ambassador/live‑chat pages or who publicly serve as ambassadors. First ask: 2–3 bullet comparisons of their school’s ED supplement tone vs peers (concrete nouns, links allowed, jargon avoided).",
+          "nodeType": "people",
+          "decidedAt": "2026-09-02T21:50:23.952Z",
+          "confidence": "medium",
+          "isWildcard": false,
+          "resultType": "search_strategy",
+          "sourceLinks": [],
+          "suggestedAction": "Draft one 5‑sentence outreach template; send to 5 profiles across 2 schools; track replies by Sept 4."
+        },
+        {
+          "id": "result-04",
+          "lane": "hard",
+          "title": "Penn Admissions—Academic program sessions incl. Penn Engineering + student live chats",
+          "nodeId": "node-01-02",
+          "scanId": "scan-2026-09-02",
+          "status": "saved",
+          "stepId": "step-01",
+          "timing": "Multiple dates; register now for a slot before Sept 5.",
+          "summary": "Penn’s virtual hub lists Live Virtual Info Sessions plus Academic Program & Schools Sessions for Penn Engineering and student‑led Live Chats. Registration gives you Q&A access to current students and AOs—ideal to sanity‑check how SEAS reads tech artifacts in ED.",
+          "nodeType": "communities",
+          "decidedAt": "2026-09-02T21:50:29.800Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://key.admissions.upenn.edu/portal/virtual-info"
+          ],
+          "suggestedAction": "Register for a Penn Engineering session and 1 student live chat; prepare a 30‑sec FastStart summary and 2 targeted supplement questions."
+        },
+        {
+          "id": "result-05",
+          "lane": "hard",
+          "title": "Cornell Engineering (Duffield) live/virtual info and Q&A series",
+          "nodeId": "node-01-02",
+          "scanId": "scan-2026-09-02",
+          "status": "saved",
+          "stepId": "step-01",
+          "timing": "Upcoming sessions are posted on the portal; recordings available if slots are full.",
+          "summary": "Cornell Duffield Engineering hosts Virtual Information Sessions and live Q&A with admissions staff and student project team panels; recent dates listed with registration on the ‘Virtual Visit’ portal.",
+          "nodeType": "communities",
+          "decidedAt": "2026-09-02T21:50:32.785Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://visit.engineering.cornell.edu/engineering-information-session/"
+          ],
+          "suggestedAction": "Register for the next live Q&A or watch the recording, then email one follow‑up question via the portal contact if needed."
+        },
+        {
+          "id": "result-06",
+          "lane": "hard",
+          "title": "Northwestern McCormick—school‑specific information sessions (online in summer/fall) + Engineering & Design tour",
+          "nodeId": "node-01-02",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Check registration calendars; aim for a McCormick session or Eng & Design tour before Sept 5.",
+          "summary": "Northwestern hosts school‑specific Academic Information Sessions, with McCormick sessions noted as online for summer; specialized Engineering & Design campus tours are offered during visit blocks. Both are official routes to ask program‑level questions.",
+          "nodeType": "communities",
+          "decidedAt": "2026-09-02T21:50:34.825Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://admissions.northwestern.edu/visit/visit-campus/",
+            "https://admissions.northwestern.edu/faqs/visiting-campus/"
+          ],
+          "suggestedAction": "Book one McCormick info session or Eng & Design tour; bring one question on showcasing shipped tools in Northwestern’s optional responses."
+        },
+        {
+          "id": "result-07",
+          "lane": "hard",
+          "title": "Penn—on‑campus and virtual information sessions with registration",
+          "nodeId": "node-01-03",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Slots available this week; virtual is fastest.",
+          "summary": "Penn’s visit hub lists daily on‑campus info sessions + tours and a dedicated virtual events portal. Use these to compare SEAS fit and confirm ED logistics quickly.",
+          "nodeType": "standard_programs",
+          "decidedAt": "2026-09-02T21:50:36.022Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://admissions.upenn.edu/visit-connect/visit-penn/on-campus",
+            "https://key.admissions.upenn.edu/portal/virtual-info"
+          ],
+          "suggestedAction": "Register for the next virtual info; block 60 minutes today."
+        },
+        {
+          "id": "result-08",
+          "lane": "hard",
+          "title": "Cornell Engineering—Virtual Information Session (Duffield) and live Q&A dates",
+          "nodeId": "node-01-03",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Check today; watch recording if no near‑term slot.",
+          "summary": "Duffield’s portal posts upcoming virtual sessions and Q&A with admissions; recent listings show July/Aug/August dates and note recordings. Monitor for new September slots or leverage recordings now.",
+          "nodeType": "standard_programs",
+          "decidedAt": "2026-09-02T21:50:37.245Z",
+          "confidence": "medium",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://visit.engineering.cornell.edu/engineering-information-session/"
+          ],
+          "suggestedAction": "Register or queue recordings; note 3 ‘fit’ phrases to mirror in your ED rationale."
+        },
+        {
+          "id": "result-09",
+          "lane": "hard",
+          "title": "Northwestern—Academic Information Sessions + specialized tours",
+          "nodeId": "node-01-03",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Register now; system is splitting summer/fall through Sept 18.",
+          "summary": "Official visit page offers Academic Information Sessions per school and specialized tours including Engineering & Design. Use Q&A to ask about optional materials and linking public repos in applications.",
+          "nodeType": "standard_programs",
+          "decidedAt": "2026-09-02T21:50:38.552Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://admissions.northwestern.edu/visit/visit-campus/"
+          ],
+          "suggestedAction": "Grab earliest online session; prepare a 1‑minute FastStart pitch."
+        },
+        {
+          "id": "result-10",
+          "lane": "hard",
+          "title": "CMU—remote Undergraduate Admission information sessions and counseling slots",
+          "nodeId": "node-01-03",
+          "scanId": "scan-2026-09-02",
+          "status": "saved",
+          "stepId": "step-01",
+          "timing": "Book a remote info/counseling slot this week.",
+          "summary": "CMU’s official Undergraduate Admission materials reference live Remote Information Sessions and Admission Counseling Sessions via their portal/calendar—channels to clarify ED plan details and SCS/Engineering expectations.",
+          "nodeType": "standard_programs",
+          "decidedAt": "2026-09-02T21:49:51.314Z",
+          "confidence": "medium",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://coursecatalog.web.cmu.edu/aboutcmu/undergraduateadmission/undergraduateadmission.pdf",
+            "https://events.cmu.edu/admission/"
+          ],
+          "suggestedAction": "Ask directly how SCS vs Engineering read shipped coding artifacts in ED and where to reference links."
+        },
+        {
+          "id": "result-11",
+          "lane": "hard",
+          "title": "Penn—additional recs and supplementary materials policy (and ED testing dates)",
+          "nodeId": "node-01-04",
+          "scanId": "scan-2026-09-02",
+          "status": "saved",
+          "stepId": "step-01",
+          "timing": "Policy live now; confirm again in your portal before submitting.",
+          "summary": "Penn allows one optional additional letter beyond the counselor + one teacher; advises using Activities/Additional Information to convey extra context; portfolios reviewed only for specific cases (e.g., VIC). ED last accepted test dates: ACT Oct 2026, SAT Nov 2026.",
+          "nodeType": "direct_opportunities",
+          "decidedAt": "2026-09-02T21:50:06.047Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://admissions.upenn.edu/how-to-apply/preparing-your-application/letters-of-recommendation",
+            "https://admissions.upenn.edu/how-to-apply/preparing-your-application/supplementary-materials",
+            "https://admissions.upenn.edu/how-to-apply/first-year-applicants/application-requirements"
+          ],
+          "suggestedAction": "If choosing Penn ED, plan exactly one concise outside endorsement (Amy/Ted) and place GitHub/video links in Activities/Additional Info; do not upload generic supplements."
+        },
+        {
+          "id": "result-12",
+          "lane": "hard",
+          "title": "CMU—letters/testing policy relevant to SCS/Engineering",
+          "nodeId": "node-01-04",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Use immediately for ED choice calculus.",
+          "summary": "CMU accepts up to two additional recommendations but will consider only one in committee; for fall 2026, SCS requires SAT or ACT while Engineering is test‑flexible per the standardized testing policy page.",
+          "nodeType": "direct_opportunities",
+          "decidedAt": "2026-09-02T21:50:42.007Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://www.cmu.edu/admission/admission/admission-consideration",
+            "https://www.cmu.edu/admission/admission/standardized-testing"
+          ],
+          "suggestedAction": "If leaning CMU SCS, schedule an ACT/SAT by the program’s preferred timeline; limit extra letters to one high‑signal writer."
+        },
+        {
+          "id": "result-13",
+          "lane": "hard",
+          "title": "Cornell Engineering—recommendation requirements",
+          "nodeId": "node-01-04",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Confirm with recommenders this week.",
+          "summary": "Cornell requires two teacher recommendations for all applicants; for Duffield Engineering, at least one must be from math/science/CS. Deadlines and submission instructions are on first‑year pages and material‑submission guides.",
+          "nodeType": "direct_opportunities",
+          "decidedAt": "2026-09-02T21:50:43.927Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://admissions.cornell.edu/first-year-duffield-engineering-applicants",
+            "https://admissions.cornell.edu/resources/application-material-submission-instructions"
+          ],
+          "suggestedAction": "Lock a math/science/CS teacher plus one other teacher; use Additional Information in Common App to point to FastStart links rather than separate uploads."
+        },
+        {
+          "id": "result-14",
+          "lane": "hard",
+          "title": "Northwestern—supplemental letters accepted; test‑optional continues",
+          "nodeId": "node-01-04",
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "Apply now to decide whether to deploy an optional outside note.",
+          "summary": "Northwestern requires counselor + one teacher recommendation and will accept supplemental letters; guidance suggests no more than three total. Testing remains test‑optional; writing supplements include one required short answer plus optional prompts for 2026–27.",
+          "nodeType": "direct_opportunities",
+          "decidedAt": "2026-09-02T21:50:44.991Z",
+          "confidence": "high",
+          "isWildcard": false,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://admissions.northwestern.edu/apply/requirements.html",
+            "https://admissions.northwestern.edu/faqs/international-applicants/",
+            "https://admissions.northwestern.edu/faqs/writing-supplements/"
+          ],
+          "suggestedAction": "If going NU ED, keep total recs ≤3; use optional short answer(s) to anchor FastStart outcomes with a single GitHub/video link."
+        },
+        {
+          "id": "result-15",
+          "lane": "hard",
+          "title": "Penn on‑campus engineering visit blocks this month (quick culture read)",
+          "nodeId": null,
+          "scanId": "scan-2026-09-02",
+          "status": "ignored",
+          "stepId": "step-01",
+          "timing": "If within travel range, book Sept 11–18; otherwise stay virtual.",
+          "summary": "Penn’s on‑campus info session + tour portal shows September programming with school‑specific options listed at registration. Even if Eng sessions are full a given day, general info + tour provides live student contact to test your ‘community infrastructure’ narrative now.",
+          "nodeType": null,
+          "decidedAt": "2026-09-02T21:50:46.404Z",
+          "confidence": "medium",
+          "isWildcard": true,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://key.admissions.upenn.edu/register/?id=90be1974-83ba-4a7c-90a9-b28e7b7d4c39",
+            "https://admissions.upenn.edu/visit-connect/visit-penn/on-campus"
+          ],
+          "suggestedAction": "Bring one yes/no culture test: “Would a peer‑teaching toolkit get traction through SEAS clubs/courses?” and note quotes for supplements.",
+          "whyMissedByNodes": "Node framing emphasized virtual ambassadors and policies; this packages the fastest local on‑campus slot tied to the same goal."
+        },
+        {
+          "id": "result-16",
+          "lane": "hard",
+          "title": "CMU Admission—remote information and counseling portal as tie‑breaker",
+          "nodeId": null,
+          "scanId": "scan-2026-09-02",
+          "status": "saved",
+          "stepId": "step-01",
+          "timing": "Book before Sept 5.",
+          "summary": "CMU’s Undergraduate Admission PDF and events calendar reference remote Information Sessions and Admission Counseling Sessions. Use a 15‑minute counseling slot to confirm whether SCS prefers SAT/ACT by ED file completion and how to reference code repos.",
+          "nodeType": null,
+          "decidedAt": "2026-09-02T21:50:12.979Z",
+          "confidence": "medium",
+          "isWildcard": true,
+          "resultType": "concrete_opportunity",
+          "sourceLinks": [
+            "https://coursecatalog.web.cmu.edu/aboutcmu/undergraduateadmission/undergraduateadmission.pdf",
+            "https://events.cmu.edu/admission/"
+          ],
+          "suggestedAction": "Ask directly: “For SCS ED, do you prefer SAT/ACT on file by Nov 1 and where should I place a repo/video link?”",
+          "whyMissedByNodes": "Sits between info sessions and direct policy; added as a concrete scheduling path to break an ED tie fast."
+        }
+      ],
+      "summary": "Scan focuses on locking an ED school between Sept 2–5, 2026 by pressure‑testing supplement fit, culture, and ED logistics at Penn SEAS, CMU SCS/Engineering, Cornell Engineering, and Northwestern McCormick. Results prioritize official pages with booking links, current policies on extra recs/portfolios/testing, and live student/ambassador Q&A routes you can use this week.",
+      "nextBestAction": "Today: Register one Penn Engineering student live chat and one Northwestern McCormick info session; skim Cornell Duffield virtual session recording. Then choose your ED school by Sept 4 using the policy deltas (CMU SCS testing required; Penn 1 extra rec max; Cornell Eng requires 1 math/science/CS teacher rec; Northwestern allows a third supplemental letter).",
+      "classifications": [
+        {
+          "lane": "soft",
+          "nodeId": "node-01-01",
+          "reason": "Best answered via targeted profiles and warm routes to current first/second‑year engineering students and official student live‑chat channels, not fixed application pages."
+        },
+        {
+          "lane": "hard",
+          "nodeId": "node-01-02",
+          "reason": "Each school hosts official student‑facing ambassador/live‑chat or school‑specific info sessions with registration links—concrete action routes."
+        },
+        {
+          "lane": "hard",
+          "nodeId": "node-01-03",
+          "reason": "Official ED/engineering info sessions and webinars are scheduled, with registration portals."
+        },
+        {
+          "lane": "hard",
+          "nodeId": "node-01-04",
+          "reason": "Admissions policy pages are official, stable sources defining rec caps, portfolios, and testing—directly decisive for ED strategy."
+        }
+      ],
+      "emptyOrRejected": []
+    }
+  ],
+  "title": "Admission to a top US tech university via ED",
+  "status": "active",
+  "nodeSet": {
+    "id": "nodes-plan-v1",
+    "nodes": [
+      {
+        "id": "node-01-01",
+        "phrase": "recent admits in engineering at the shortlisted schools who can compare ED supplements and culture",
+        "status": "active",
+        "stepId": "step-01",
+        "nodeType": "people"
+      },
+      {
+        "id": "node-01-02",
+        "phrase": "target schools’ engineering student ambassador programs with Q&A hours",
+        "status": "active",
+        "stepId": "step-01",
+        "nodeType": "communities"
+      },
+      {
+        "id": "node-01-03",
+        "phrase": "official ED info sessions or webinars for engineering applicants at the shortlisted schools",
+        "status": "active",
+        "stepId": "step-01",
+        "nodeType": "standard_programs"
+      },
+      {
+        "id": "node-01-04",
+        "phrase": "admissions policy pages clarifying additional recommendations and portfolio links for ED",
+        "status": "active",
+        "stepId": "step-01",
+        "nodeType": "direct_opportunities"
+      },
+      {
+        "id": "node-02-01",
+        "phrase": "VEX Forum channels where V5 C++ autonomous templates are shared and critiqued",
+        "status": "active",
+        "stepId": "step-02",
+        "nodeType": "communities"
+      },
+      {
+        "id": "node-02-02",
+        "phrase": "veteran VEX mentors who offer quick code reviews for student repos",
+        "status": "active",
+        "stepId": "step-02",
+        "nodeType": "people"
+      },
+      {
+        "id": "node-02-03",
+        "phrase": "TSA Indiana Discords or listservs where teams exchange build resources",
+        "status": "active",
+        "stepId": "step-02",
+        "nodeType": "communities"
+      },
+      {
+        "id": "node-02-04",
+        "phrase": "open-source VEX C++ repos with standout QuickStart docs to model structure",
+        "status": "active",
+        "stepId": "step-02",
+        "nodeType": "artifacts_side_projects"
+      },
+      {
+        "id": "node-03-01",
+        "phrase": "school STEM newsletters or announcement channels that accept event RSVPs",
+        "status": "active",
+        "stepId": "step-03",
+        "nodeType": "communities"
+      },
+      {
+        "id": "node-03-02",
+        "phrase": "neighboring high school VEX team leads willing to bring a small group to a mini‑workshop",
+        "status": "active",
+        "stepId": "step-03",
+        "nodeType": "people"
+      },
+      {
+        "id": "node-04-01",
+        "phrase": "VEX coaches on forums known for constructive code and README critiques",
+        "status": "active",
+        "stepId": "step-04",
+        "nodeType": "people"
+      },
+      {
+        "id": "node-04-02",
+        "phrase": "student‑run engineering blogs or Medium publications that feature concise build write‑ups",
+        "status": "active",
+        "stepId": "step-04",
+        "nodeType": "communities"
+      },
+      {
+        "id": "node-04-03",
+        "phrase": "one‑page Impact Brief PDF templates from open‑source education projects",
+        "status": "active",
+        "stepId": "step-04",
+        "nodeType": "artifacts_side_projects"
+      },
+      {
+        "id": "node-05-01",
+        "phrase": "target ED school pages detailing limits and process for outside recommendations",
+        "status": "active",
+        "stepId": "step-05",
+        "nodeType": "direct_opportunities"
+      },
+      {
+        "id": "node-05-02",
+        "phrase": "admissions regional reps for the target school who answer policy questions by email",
+        "status": "active",
+        "stepId": "step-05",
+        "nodeType": "people"
+      },
+      {
+        "id": "node-05-03",
+        "phrase": "industry mentors open to concise outside endorsements aligned to initiative and follow‑through",
+        "status": "active",
+        "stepId": "step-05",
+        "nodeType": "people"
+      },
+      {
+        "id": "node-06-01",
+        "phrase": "accepted students from the target program who can red‑team supplements for tone and specificity",
+        "status": "active",
+        "stepId": "step-06",
+        "nodeType": "people"
+      },
+      {
+        "id": "node-06-02",
+        "phrase": "school‑specific essay review channels where verified admits give feedback",
+        "status": "active",
+        "stepId": "step-06",
+        "nodeType": "communities"
+      },
+      {
+        "id": "node-06-03",
+        "phrase": "published exemplar ED supplements from admitted engineering applicants to calibrate specificity",
+        "status": "active",
+        "stepId": "step-06",
+        "nodeType": "artifacts_side_projects"
+      },
+      {
+        "id": "node-07-01",
+        "phrase": "target school policy on post‑submission updates and the channel to submit them",
+        "status": "active",
+        "stepId": "step-07",
+        "nodeType": "direct_opportunities"
+      },
+      {
+        "id": "node-07-02",
+        "phrase": "VEX Forum tags or threads to field FastStart Q&A after launch",
+        "status": "active",
+        "stepId": "step-07",
+        "nodeType": "communities"
+      },
+      {
+        "id": "node-07-03",
+        "phrase": "admissions portal support channels for checklist and receipt verification",
+        "status": "active",
+        "stepId": "step-07",
+        "nodeType": "people"
+      }
+    ],
+    "status": "approved",
+    "approval": {
+      "approvedAt": "2026-09-02T21:37:24.538Z",
+      "approvedBy": "you"
+    },
+    "createdAt": "2026-09-02T21:36:31.972Z",
+    "planVersion": 1
+  },
+  "reviews": [],
+  "createdAt": "2026-09-02T21:29:21.359Z",
+  "goalInput": {
+    "success": "Gaining admission",
+    "deadline": "Within a year (by Early decision)",
+    "objective": "My goal is to get into a top university for tech in the US by continuing to build meaningful tech projects, emphasizing certain aspects of my problem-solving character, and to not just get into college but have meaningful projects by the time I get in",
+    "constraints": ""
+  },
+  "updatedAt": "2026-09-02T21:51:22.609Z",
+  "currentStepId": "step-01",
+  "opportunities": [
+    {
+      "id": "opp-2026-09-02-result-01",
+      "lane": "soft",
+      "title": "Penn/Cornell/Northwestern student insiders in engineering—fastest official routes",
+      "nodeId": "node-01-01",
+      "status": "finished",
+      "stepId": "step-01",
+      "timing": "Book today/tomorrow; sessions run ~1 hr in ET.",
+      "outcome": {
+        "at": "2026-09-02T21:51:22.549Z",
+        "notes": "XYZ",
+        "action": "finish",
+        "impact": "XYZ"
+      },
+      "summary": "Target current first/second‑year engineering students via each school’s sanctioned live‑student programming: Penn Admissions’ student‑led Live Chats and Digging Deeper panels (register on the Virtual Information Sessions portal). Open with: “I’m choosing ED this week; what essay angles actually resonate in SEAS/McCormick/Cornell Eng supplements?” Capture 3 takeaways to compare schools’ culture of ‘build and share.’",
+      "nodeType": "people",
+      "confidence": "high",
+      "promotedAt": "2026-09-02T21:49:38.687Z",
+      "resultType": "search_strategy",
+      "sourceLinks": [
+        "https://key.admissions.upenn.edu/portal/virtual-info"
+      ],
+      "sourceScanId": "scan-2026-09-02",
+      "sourceResultId": "result-01",
+      "suggestedAction": "Register for a Penn student live chat; prepare two precise FastStart‑focused questions and ask how applicants effectively referenced repos/videos in SEAS supplements."
+    },
+    {
+      "id": "opp-2026-09-02-result-10",
+      "lane": "hard",
+      "title": "CMU—remote Undergraduate Admission information sessions and counseling slots",
+      "nodeId": "node-01-03",
+      "status": "active",
+      "stepId": "step-01",
+      "timing": "Book a remote info/counseling slot this week.",
+      "summary": "CMU’s official Undergraduate Admission materials reference live Remote Information Sessions and Admission Counseling Sessions via their portal/calendar—channels to clarify ED plan details and SCS/Engineering expectations.",
+      "nodeType": "standard_programs",
+      "confidence": "medium",
+      "promotedAt": "2026-09-02T21:49:51.314Z",
+      "resultType": "concrete_opportunity",
+      "sourceLinks": [
+        "https://coursecatalog.web.cmu.edu/aboutcmu/undergraduateadmission/undergraduateadmission.pdf",
+        "https://events.cmu.edu/admission/"
+      ],
+      "sourceScanId": "scan-2026-09-02",
+      "sourceResultId": "result-10",
+      "suggestedAction": "Ask directly how SCS vs Engineering read shipped coding artifacts in ED and where to reference links."
+    },
+    {
+      "id": "opp-2026-09-02-result-11",
+      "lane": "hard",
+      "title": "Penn—additional recs and supplementary materials policy (and ED testing dates)",
+      "nodeId": "node-01-04",
+      "status": "active",
+      "stepId": "step-01",
+      "timing": "Policy live now; confirm again in your portal before submitting.",
+      "summary": "Penn allows one optional additional letter beyond the counselor + one teacher; advises using Activities/Additional Information to convey extra context; portfolios reviewed only for specific cases (e.g., VIC). ED last accepted test dates: ACT Oct 2026, SAT Nov 2026.",
+      "nodeType": "direct_opportunities",
+      "confidence": "high",
+      "promotedAt": "2026-09-02T21:50:06.047Z",
+      "resultType": "concrete_opportunity",
+      "sourceLinks": [
+        "https://admissions.upenn.edu/how-to-apply/preparing-your-application/letters-of-recommendation",
+        "https://admissions.upenn.edu/how-to-apply/preparing-your-application/supplementary-materials",
+        "https://admissions.upenn.edu/how-to-apply/first-year-applicants/application-requirements"
+      ],
+      "sourceScanId": "scan-2026-09-02",
+      "sourceResultId": "result-11",
+      "suggestedAction": "If choosing Penn ED, plan exactly one concise outside endorsement (Amy/Ted) and place GitHub/video links in Activities/Additional Info; do not upload generic supplements."
+    },
+    {
+      "id": "opp-2026-09-02-result-16",
+      "lane": "hard",
+      "title": "CMU Admission—remote information and counseling portal as tie‑breaker",
+      "nodeId": null,
+      "status": "active",
+      "stepId": "step-01",
+      "timing": "Book before Sept 5.",
+      "summary": "CMU’s Undergraduate Admission PDF and events calendar reference remote Information Sessions and Admission Counseling Sessions. Use a 15‑minute counseling slot to confirm whether SCS prefers SAT/ACT by ED file completion and how to reference code repos.",
+      "nodeType": null,
+      "confidence": "medium",
+      "promotedAt": "2026-09-02T21:50:12.979Z",
+      "resultType": "concrete_opportunity",
+      "sourceLinks": [
+        "https://coursecatalog.web.cmu.edu/aboutcmu/undergraduateadmission/undergraduateadmission.pdf",
+        "https://events.cmu.edu/admission/"
+      ],
+      "sourceScanId": "scan-2026-09-02",
+      "sourceResultId": "result-16",
+      "suggestedAction": "Ask directly: “For SCS ED, do you prefer SAT/ACT on file by Nov 1 and where should I place a repo/video link?”"
+    },
+    {
+      "id": "opp-2026-09-02-result-04",
+      "lane": "hard",
+      "title": "Penn Admissions—Academic program sessions incl. Penn Engineering + student live chats",
+      "nodeId": "node-01-02",
+      "status": "active",
+      "stepId": "step-01",
+      "timing": "Multiple dates; register now for a slot before Sept 5.",
+      "summary": "Penn’s virtual hub lists Live Virtual Info Sessions plus Academic Program & Schools Sessions for Penn Engineering and student‑led Live Chats. Registration gives you Q&A access to current students and AOs—ideal to sanity‑check how SEAS reads tech artifacts in ED.",
+      "nodeType": "communities",
+      "confidence": "high",
+      "promotedAt": "2026-09-02T21:50:29.800Z",
+      "resultType": "concrete_opportunity",
+      "sourceLinks": [
+        "https://key.admissions.upenn.edu/portal/virtual-info"
+      ],
+      "sourceScanId": "scan-2026-09-02",
+      "sourceResultId": "result-04",
+      "suggestedAction": "Register for a Penn Engineering session and 1 student live chat; prepare a 30‑sec FastStart summary and 2 targeted supplement questions."
+    },
+    {
+      "id": "opp-2026-09-02-result-05",
+      "lane": "hard",
+      "title": "Cornell Engineering (Duffield) live/virtual info and Q&A series",
+      "nodeId": "node-01-02",
+      "status": "active",
+      "stepId": "step-01",
+      "timing": "Upcoming sessions are posted on the portal; recordings available if slots are full.",
+      "summary": "Cornell Duffield Engineering hosts Virtual Information Sessions and live Q&A with admissions staff and student project team panels; recent dates listed with registration on the ‘Virtual Visit’ portal.",
+      "nodeType": "communities",
+      "confidence": "high",
+      "promotedAt": "2026-09-02T21:50:32.785Z",
+      "resultType": "concrete_opportunity",
+      "sourceLinks": [
+        "https://visit.engineering.cornell.edu/engineering-information-session/"
+      ],
+      "sourceScanId": "scan-2026-09-02",
+      "sourceResultId": "result-05",
+      "suggestedAction": "Register for the next live Q&A or watch the recording, then email one follow‑up question via the portal contact if needed."
+    }
+  ]
+}
