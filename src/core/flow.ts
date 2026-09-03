@@ -157,6 +157,11 @@ export function stageOf(project: Project): Stage {
   const scan = latestScan(project);
   if (scan && untriagedResults(scan).length > 0) return "scan_triage";
 
+  // A step you have never scanned should offer a scan, even when work carried
+  // over from the previous one. Otherwise advancing lands you on a fresh step
+  // holding old tasks, with nothing pointing at the new step's opportunities.
+  if (!scan) return "nodes_approved";
+
   // Finished work outranks work in flight. Opportunities carry across steps,
   // so you can easily have both - and once there is evidence, the useful
   // offer is "check whether this step is done", not "log something else".

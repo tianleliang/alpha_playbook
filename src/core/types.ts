@@ -53,6 +53,9 @@ export interface Profile {
   directionAndLogic: string[];
   underusedLeverage: string[];
   unknowns: string[];
+
+  /** Generations used today, across every goal. Resets by not matching. */
+  usage?: { date: ISODate; runs: number };
 }
 
 // ---------------------------------------------------------------- goal + brief
@@ -328,4 +331,7 @@ export interface Project {
 
   /** Mirrors whichever step has status "current". Kept for fast lookup. */
   currentStepId: string | null;
+
+  /** Set while an AI stage is running, cleared when it finishes or fails. */
+  running?: { action: string; startedAt: Timestamp };
 }

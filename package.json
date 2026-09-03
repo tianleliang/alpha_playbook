@@ -12,7 +12,8 @@
     "try:codex": "tsx scripts/try-codex.mts",
     "try:openai": "tsx scripts/try-openai.mts",
     "try:scan": "tsx scripts/try-scan.mts",
-    "check:review": "tsx scripts/check-review.mts"
+    "check:review": "tsx scripts/check-review.mts",
+    "check:advance": "tsx scripts/check-advance.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
