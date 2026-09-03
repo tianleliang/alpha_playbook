@@ -14,15 +14,9 @@
 import { revalidatePath } from "next/cache";
 
 import { type ActionId, can, latestScan } from "./flow";
-import {
-  DAILY_RUN_LIMIT,
-  LOCK_TIMEOUT_MS,
-  RESCAN_COOLDOWN_MS,
-  isExpensive,
-  minutesUntil,
-  today,
-} from "./limits";
+import { isExpensive, refusalReason } from "./limits";
 import { readProfile, readProject, writeProfile, writeProject } from "./store";
+import { today } from "./limits";
 import type { Project } from "./types";
 
 export async function mutate(
@@ -69,37 +63,21 @@ async function save(projectId: string, next: Project): Promise<Project> {
   return saved;
 }
 
+/** Gathers the state the policy needs, then asks it. The decision itself lives in limits.ts. */
 async function checkLimits(project: Project, action: ActionId): Promise<void> {
-  const running = project.running;
-  if (running) {
-    const age = Date.now() - new Date(running.startedAt).getTime();
-    if (age < LOCK_TIMEOUT_MS) {
-      throw new Error(
-        "Something is already running on this goal. Wait for it to finish, or reload the page.",
-      );
-    }
-    // Older than the timeout means the previous run died. Carry on.
-  }
-
-  if (action === "run_scan") {
-    const previous = latestScan(project);
-    if (previous) {
-      const age = Date.now() - new Date(previous.runAt).getTime();
-      if (age < RESCAN_COOLDOWN_MS) {
-        throw new Error(
-          `You scanned this step ${Math.round(age / 60_000)} minutes ago. Try again in ${minutesUntil(previous.runAt, RESCAN_COOLDOWN_MS)} minutes - results will not have changed much yet.`,
-        );
-      }
-    }
-  }
-
+  const previous = latestScan(project);
   const profile = await readProfile();
-  const usage = profile?.usage;
-  if (usage && usage.date === today() && usage.runs >= DAILY_RUN_LIMIT) {
-    throw new Error(
-      `That is ${DAILY_RUN_LIMIT} generations today, which is the daily limit. It resets tomorrow.`,
-    );
-  }
+
+  const reason = refusalReason(action, {
+    running: project.running,
+    lastScanAt: previous?.runAt,
+    lastScanKeptAnything: previous
+      ? previous.results.some((r) => r.status === "saved")
+      : undefined,
+    usage: profile?.usage,
+  });
+
+  if (reason) throw new Error(reason);
 }
 
 /** One counter per person per day. Resets by simply not matching yesterday. */
