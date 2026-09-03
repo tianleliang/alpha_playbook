@@ -81,6 +81,20 @@ check(
 );
 check("an approved advance is stage review_approved", stageOf(approved) === "review_approved");
 
+// The combination the old code could produce: approved, but not an advance.
+// There is nothing to apply behind it, so it must not read as open.
+const strandedApproval = withReview("needs_more_evidence", "approved");
+check(
+  "an approved non-advance verdict is finished business, not a pending transition",
+  openReview(strandedApproval) === null,
+  `openReview returned a ${openReview(strandedApproval)?.status} review`,
+);
+check(
+  "and it returns you to your work rather than offering a move",
+  ["active_work", "finished_evidence", "nodes_approved"].includes(stageOf(strandedApproval)),
+  `got stage ${stageOf(strandedApproval)}`,
+);
+
 // A settled review gets out of the way rather than blocking the workspace.
 for (const status of ["applied", "rejected"] as const) {
   const project = withReview("needs_more_evidence", status);

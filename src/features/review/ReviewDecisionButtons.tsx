@@ -83,7 +83,8 @@ export function ReviewDecisionButtons({
           </>
         )}
 
-        {status === "approved" && (
+        {/* Only an advance verdict has a transition queued behind it. */}
+        {status === "approved" && canAdvance && (
           <Button size="sm" onClick={() => run(() => applyReview(projectId))} disabled={busy}>
             {pending ? <Loader2 className="size-3.5 animate-spin" /> : null}
             Move to the next step

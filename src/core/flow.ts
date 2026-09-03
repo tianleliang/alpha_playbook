@@ -95,13 +95,23 @@ export function finishedForCurrentStep(project: Project): Opportunity[] {
   return project.opportunities.filter((o) => o.status === "finished" && o.stepId === step.id);
 }
 
-/** A review waiting on the user, for the step we are actually on. */
+/**
+ * A review still waiting on the user, for the step we are actually on.
+ *
+ * Approved only counts as open when the verdict was "advance", because that is
+ * the only one with anything left to apply. Agreeing with "keep working" ends
+ * the conversation - there is no transition queued behind it, and offering one
+ * would promise something that cannot happen.
+ */
 export function openReview(project: Project): StepReview | null {
   const step = currentStep(project);
   if (!step) return null;
+
   return (
     project.reviews.find(
-      (r) => r.fromStepId === step.id && (r.status === "proposed" || r.status === "approved"),
+      (r) =>
+        r.fromStepId === step.id &&
+        (r.status === "proposed" || (r.status === "approved" && r.decision === "advance")),
     ) ?? null
   );
 }
