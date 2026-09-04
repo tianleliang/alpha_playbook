@@ -1,157 +1,108 @@
 # Roadmap
 
 Running list. Add to it whenever something gets deferred; tick things off as
-they land. Newest thinking wins — this file is meant to be edited, not archived.
+they land. Newest thinking wins — this file is meant to be edited.
 
-**Built so far:** the whole goal → plan → directions → scan → act → review →
-advance loop, running on fixtures. See [ARCHITECTURE.md](ARCHITECTURE.md).
+**Where it stands:** the whole loop runs live, on real accounts, against a real
+database, deployed. See [README.md](README.md).
 
 ---
 
-## Next session
+## 1. Editing what gets generated
 
-### 1. Real AI — the Codex provider
+The largest gap, and the one the original system had flagged before this rebuild
+started. Right now you can approve a brief or regenerate it. You cannot fix it.
 
-The single highest-leverage thing left. Everything else is polish on top of
-fake output.
+- [ ] Inline edits on brief fields, plan steps, and leverage node phrases.
+- [ ] An edit creates a revision rather than overwriting, so regeneration never
+      silently eats a correction.
+- [ ] Feedback-driven revision: say what is wrong, get a proposed diff, approve
+      or reject it. The same proposal-and-gate shape as everything else.
+- [ ] Decide whether that is one control or one per artifact.
 
-- [ ] `src/ai/codex/index.ts` implementing `AiProvider`, shelling out to the
-      Codex CLI already installed at `~/AppData/Roaming/npm/codex`.
-- [ ] Reuse the proven call shape from the Obsidian scripts:
-      `codex exec --ephemeral --sandbox read-only --output-schema <file>
-      --output-last-message <file>`, prompt over stdin.
-- [ ] `--search` on for brief research and scans; off for plan, directions,
-      and step review.
-- [ ] Convert the Zod schemas to JSON Schema for `--output-schema`, then parse
-      the response back through Zod. One source of truth, both directions.
-- [ ] `getProvider()` reads `PLAYBOOK_PROVIDER=codex|mock`, defaulting to mock.
-- [ ] Port the four prompt files from `06 Alpha/templates/` and the step-review
-      prompt from `evaluate-step.ts`, keeping stage inputs isolated exactly as
-      the table in ARCHITECTURE.md describes.
-- [ ] Timeouts, one retry at most, and a clear error in the UI when a call
-      fails. Never a silent half-write.
-- [ ] Drop the **Demo data** chip automatically when the provider is real.
+## 2. Scan quality
 
-**Watch for:** the mock's resume parsing is deliberately naive and currently
-puts your name in the capabilities bucket, which is why a plan step reads
-"Turn Tianle Liang into something someone else can look at." Real synthesis
-fixes this. Do not build a better fixture parser.
+Partly addressed — the per-category guidance is back in the prompt, and results
+say what they are rather than which lane found them. The rest is unfinished.
 
-### 2. Editing — the biggest hole
+- [ ] Cut verbosity while keeping enough for promotion and later reasoning.
+- [ ] Separate "make this" from "apply to this" more sharply than the three
+      result types manage today.
+- [ ] Push `standard_programs` and `direct_opportunities` harder toward things
+      with an actual application route.
+- [ ] Retune the broad-versus-local balance against a goal that is not a
+      university application.
 
-The acceptance test says "review / **edit** / approve" at three gates. Only
-review and approve exist. You cannot fix a wrong brief or reword a step.
+## 3. The gaps from building it
 
-- [ ] Inline edit on the brief fields, plan steps, and direction phrases.
-- [ ] Edits create a revision rather than overwriting, so regeneration never
-      silently eats your corrections.
-- [ ] Feedback-driven revision: describe what is wrong, get a proposed diff,
-      approve or reject it. Decide whether this is one universal control or
-      per-artifact.
-
-*(Carried over from the Obsidian task list, Stage 2 track 1 — still the right
-priority.)*
-
-### 3. The small gaps from tonight
-
-- [ ] **Deferred results have nowhere to go.** You can mark one "Later" and
-      then never see it again. Needs a place they come back.
-- [ ] **No history panel.** Past scans, dropped opportunities, and old reviews
-      are all saved and none of them are displayed.
-- [ ] **Regeneration replaces instead of versioning.** `plan-v2` is supported by
+- [ ] **Deferred results go nowhere.** You can mark one "Later" and never see it
+      again.
+- [ ] **No history.** Past scans, dropped opportunities and old reviews are all
+      stored and none of them are shown.
+- [ ] **Regeneration replaces rather than versions.** `plan-v2` is supported by
       the types and never produced.
-- [ ] **Skipped steps.** The status exists; nothing can set it.
-- [ ] **Project actions.** No pause, archive, or delete from the UI.
-- [ ] **Deleting a goal** means deleting a file by hand.
+- [ ] **Skipped steps.** The status exists; nothing sets it.
+- [ ] No pause, archive or delete from the interface.
+- [ ] Onboarding extracts text from an uploaded PDF and throws the file away.
+      Keeping it would allow re-parsing later.
 
----
+## 4. The daily layer
 
-## Bigger features
+The original vision was "new tasks every day". Nothing in the current design
+does this, and it is an addition rather than a missing piece: steps are
+month-scale, opportunities are things you chose, and neither is a daily task.
 
-### Real personal context
-
-Onboarding currently produces a thin profile from a resume. The real thing is
-the Personal Leverage Map.
-
-- [ ] Import a generated map as a `PersonalContextProvider` — the interface
-      already exists and expects exactly this.
-- [ ] Keep source links so the plan can cite where a claim came from.
-- [ ] Detect when the profile has changed since a plan was built
-      (`plan.profileHash` is already stored for this) and offer a re-plan.
-- [ ] Decide what onboarding looks like for someone who is *not* you and has
-      no vault.
-
-### Accounts and hosting
-
-Out of scope tonight on purpose. When it happens:
-
-- [ ] Auth. Supabase is the assumed direction.
-- [ ] Move persistence behind the same `store.ts` interface — Postgres tables
-      mirroring the object contract, or JSONB per project to start.
-- [ ] Multi-user: every project scoped to an owner.
-- [ ] Migration path from local JSON, so tonight's data is not stranded.
-- [ ] Keep local-only mode working. It is the best development story and the
-      most honest privacy story.
-
-### The daily layer
-
-Your vision was "new tasks every day — a whole second brain." Nothing in the
-current design does this, and it is an addition rather than a missing piece.
-
-Steps are month-scale. Opportunities are things you chose. Neither is a daily
-task. This needs a genuinely new object, probably derived rather than stored:
-today's surface = current step's moves + active opportunities with near timing
-+ anything overdue.
-
-- [ ] Decide whether daily items are derived (recomputed each morning) or
-      stored (checkable, with their own history). Derived is cheaper and
-      cannot drift; stored is what lets you look back.
+- [ ] Decide whether daily items are derived fresh each morning or stored and
+      checkable. Derived cannot drift; stored is what lets you look back.
 - [ ] A morning view that is not the whole workspace.
-- [ ] Only after that: scheduling, reminders, notifications.
+- [ ] Only then: scheduling, reminders, notifications.
 
-### Scheduled scans
+## 5. Richer personal context
 
-- [ ] Weekly scan per active project, once scan quality is worth automating.
-- [ ] Due-state and locking live in the app, not in a scheduler — the Obsidian
-      version learned this the hard way.
-- [ ] Do not build this before real AI. Scheduling fixtures is pointless.
+Onboarding builds a profile from a resume and three questions. The system it
+came from used a far richer compiled history.
 
-### Scan quality
+- [ ] Import a generated Personal Leverage Map through the existing
+      `PersonalContextProvider` slot — it was designed for exactly this.
+- [ ] Keep source links so a plan can cite where a claim came from.
+- [ ] `plan.profileHash` is already stored; use it to notice when a plan was
+      built from a version of you that has moved on, and offer a re-plan.
 
-*(Carried from the Obsidian task list, Stage 2 track 2. Only actionable once
-scans are real.)*
+## 6. Scheduled scans
 
-- [ ] Reduce verbosity while keeping enough for promotion and later reasoning.
-- [ ] Separate artifact/action recommendations from external opportunities more
-      clearly than the current three result types manage.
-- [ ] Bias `standard_programs` and `direct_opportunities` toward genuinely
-      application-based results.
-- [ ] Make soft-lane results into real playbooks: where to look, first ask,
-      fit signal.
-- [ ] Retune the broad-vs-local balance against a non-Z-Fellows goal.
+- [ ] A weekly scan per active goal, once quality is worth automating.
+- [ ] Due-state and locking belong in the app, not in a scheduler. The Obsidian
+      version learned that the hard way.
 
----
+## 7. Before it is genuinely public-facing
 
-## Before this goes public
-
-- [ ] Synthetic demo data only. Nothing personal in the repo.
-- [ ] `.env.example`, no secrets.
-- [ ] Confirm it runs with no access to the Obsidian vault.
-- [ ] Document the state machine and the AI/code boundary — ARCHITECTURE.md is
-      most of this already.
-- [ ] Nothing from Broad Brief. Different product, deliberately kept out.
-- [ ] Real tests, not just `npm run check`. The state machine and the
-      transition logic deserve unit tests.
+- [ ] Swap the demo fixture for a fully synthetic run. Private names are already
+      replaced, but the school and its details remain.
+- [ ] Real tests around the transition logic, beyond the three check suites.
+- [ ] Long calls hold an HTTP connection for up to three minutes. Fine on a
+      plain Node host; OpenAI's background mode plus polling would be the
+      correct fix if that ever stops being true.
+- [ ] The free Render tier sleeps after fifteen minutes.
 
 ---
 
-## Deliberately not doing
+## Settled, so it does not come back
 
-Worth keeping visible so they do not creep back in.
-
-- **Nested requirement checklists under steps.** Tried in the old system,
-  discarded. Steps are judged, not ticked off.
+- **Nested requirement checklists under steps.** Tried in the original system
+  and discarded. Steps are judged, not ticked off.
 - **Auto-promoting scan results.** Every promotion stays an explicit choice.
-- **Letting the AI write state directly.** It proposes; code applies.
-- **Broad Brief.** Separate product. Do not let its discovery architecture
+- **Letting the AI write state.** It proposes; code applies.
+- **Broad Brief.** A separate product. Its discovery architecture must not
   redefine this one.
+
+## Closed by the rebuild
+
+Two whole tracks from the original list stopped existing rather than getting
+done:
+
+- **Object index and structure.** The old system hand-tagged Markdown and
+  regenerated a JSON index so commands could ask "all steps in this plan". Here
+  that question is `plan.steps`. There is no index to keep in sync, and the
+  regex parsers that used to lose completed steps cannot exist. What survived is
+  the validation half, as `src/core/validate.ts`.
+- **An app-like interaction layer.** That is the whole thing now.

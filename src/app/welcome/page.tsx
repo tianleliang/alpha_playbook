@@ -26,10 +26,11 @@ const STEPS: Array<[string, string]> = [
 ];
 
 const COMING = [
-  "Editing generated work, rather than only approving or regenerating it",
+  "Editing what the system generates, not only approving or regenerating it",
+  "Sharper scans: fewer results, more of them application-shaped",
   "A daily view that surfaces what to do today, not just this step",
-  "Importing a richer personal history than a resume can carry",
-  "Scheduled scans, once the results are worth automating",
+  "Importing a richer history than a resume can carry",
+  "Scheduled weekly scans, once the results are worth automating",
 ];
 
 /**
