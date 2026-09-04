@@ -70,10 +70,7 @@ the demo exists at all.
 
 ---
 
-## What's next
-
-None of this is hypothetical. It's what the tool needs to stop being a good
-first draft.
+## Currently in the Works
 
 **Editing.** At the moment you can approve what gets generated or throw it away
 and regenerate. You can't fix it. If a constraint changes halfway through, you
@@ -100,7 +97,7 @@ the structural pieces.
 
 ---
 
-## What's in it
+## Features
 
 **Accounts.** Supabase Auth, email and password. Middleware refreshes the session
 on every request and gates every route, so a signed-out visitor lands on the
