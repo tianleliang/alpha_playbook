@@ -2,12 +2,12 @@
 
 ## The one idea
 
-The AI never changes anything. It returns **proposals**. Deterministic code
-checks each proposal, assigns the ids, and applies it only at the gate where
-you said yes.
+The AI never changes anything. It hands back **proposals**. Deterministic code
+checks each one, assigns the ids, and applies it only at the gate where you
+said yes.
 
-That split is why the model can be swapped, mocked, or wrong without corrupting
-your data. It also means every consequential move in the system is yours.
+That split is what lets the model be swapped, mocked, or plain wrong without
+corrupting anything. It also means every move that matters is yours.
 
 ```
 AI owns          research, planning, leverage synthesis, discovery, judgment
@@ -17,28 +17,30 @@ Code owns        ids, statuses, transitions, eligibility, validation,
 
 ## What you see
 
-### Onboarding — once, ever
+### Onboarding, once, ever
 
 Paste a resume, answer three questions. That becomes a **Profile**: seven
-buckets describing where you are, what you can do, what you have built, who you
-know, where you are heading, what is going unused, and what is unclear.
+buckets describing where you're, what you can do, what you've built, who you
+know, where you're heading, what's going unused, and what's unclear.
 
-The Profile fills the same slot the Personal Leverage Map fills in the Obsidian
-system. When a real vault export replaces it, nothing downstream changes.
+The Profile sits in the same slot the Personal Leverage Map filled in the
+Obsidian version, so a real vault export can replace it without anything
+downstream noticing.
 
 ### The goal box
 
-Four fields, and nothing is inferred on your behalf:
+Four fields. Nothing gets inferred on your behalf:
 
-1. what you are trying to do
+1. what you're trying to do
 2. how you would know you succeeded
 3. by when
 4. anything limiting you
 
 ### The workspace
 
-One page per goal. Panels stack in the order you actually look at them, and a
-single card at the top says the one thing to do next — not twelve equal buttons.
+One page per goal. Panels stack in the order you actually look at them, and one
+card at the top tells you the single next thing to do, rather than offering you
+twelve equal buttons.
 
 ```
 Next action          the only thing that matters right now
@@ -85,26 +87,27 @@ Health               every relationship, verified
                                      next one current, and you scan again
 ```
 
-Five gates. Every one records who approved it and when — not a checkbox.
+Five gates, and each one records who approved it and when. Not a checkbox.
 
 ## What each AI stage is allowed to see
 
-This table is the most important thing in the system. Two stages are
-deliberately blind, and it is enforced by not passing the data in rather than
-by asking the model nicely.
+This table is the most important thing in the system. Two stages are blind on
+purpose, and that gets enforced by not passing the data in, not by asking the
+model nicely.
 
 | Stage | Sees | Deliberately does **not** see |
 |---|---|---|
-| Profile synthesis | what you pasted | — |
+| Profile synthesis | what you pasted |, |
 | **Brief research** | the four goal fields | **your profile** |
-| Plan | brief + profile + today | — |
-| Directions | brief + plan + profile | — |
+| Plan | brief + profile + today |, |
+| Directions | brief + plan + profile |, |
 | Scan | brief + plan + **current step only** + that step's approved directions + profile | other steps, other scans |
 | **Step review** | brief + plan + current step + finished work on that step | **your profile**, other steps, scans |
 
 Brief research is blind to you so the brief describes what the goal *is*,
-uncoloured by who is chasing it. Step review is blind to you because whether a
-step is done is a question about evidence, not about how capable you are.
+uncoloured by whoever is chasing it. Step review is blind to you because
+whether a step is finished is a question about evidence, not about how capable
+you happen to be.
 
 ## Data flow, concretely
 
@@ -124,7 +127,7 @@ button (client)
 ```
 
 Nothing is held in memory between requests. Every action re-reads state, so a
-stale tab, a double click, or a hand-made request cannot skip a gate.
+stale tab or a double click or a hand-made request can't skip a gate.
 
 ## The objects
 
@@ -143,31 +146,31 @@ Project                 one goal and everything that happened to it
 ```
 
 Big containers get globally unique ids. Nested things get short readable ones
-that are unique inside their parent — `step-01` means nothing alone, and
-everything as part of a specific plan.
+that are only unique inside their parent, so `step-01` means nothing on its own
+and everything as part of a particular plan.
 
 **Opportunity ids come from where the opportunity came from**, never from a
-counter. Saving the same result twice produces the same id, so it is a no-op
+counter. Save the same result twice and you get the same id, so it's a no-op
 instead of a duplicate.
 
 ## Storage
 
-Postgres, via Supabase. Two tables:
+Postgres, through Supabase. Two tables:
 
 ```sql
 profiles ( user_id uuid pk, data jsonb, updated_at )
 projects ( id text, user_id uuid, data jsonb, updated_at, pk (user_id, id) )
 ```
 
-The domain objects go in as JSONB exactly as `types.ts` defines them. Postgres
-owns identity and ownership; the app owns the shape. A change to what a Project
+Domain objects go in as JSONB, exactly as `types.ts` defines them. Postgres owns
+identity and ownership, the app owns the shape, and changing what a Project
 contains needs no migration.
 
-Ownership is enforced by row-level security, not by application code. There is
-no policy that would let one account read another's rows, so a bug in the app
-cannot leak data. Project ids are derived from the goal, so two users can
-independently arrive at the same one — which is why ownership is part of the
-primary key.
+Ownership is enforced by row-level security rather than by application code.
+There's no policy that would let one account read another's rows, so a bug in
+the app can't leak data. Project ids come from the goal itself, which means two
+people can independently land on the same one. That's why ownership is part of
+the primary key.
 
 Everything goes through `src/core/store.ts`. Moving to another database means
 rewriting that one file.
@@ -175,12 +178,11 @@ rewriting that one file.
 ## Accounts
 
 Supabase Auth, email and password. `src/middleware.ts` refreshes the session on
-every request and bounces signed-out visitors to `/login`. Server code always
-asks for the user with `getUser()`, never `getSession()` — the latter trusts the
-cookie without checking it.
+every request and bounces signed-out visitors to the landing page. Server code
+always asks for the user with `getUser()` rather than `getSession()`, because
+`getSession()` trusts the cookie without checking it.
 
-Passwords are never seen, stored, or logged by this app; they go straight to
-Supabase.
+This app never sees, stores or logs a password. They go straight to Supabase.
 
 ## The health check
 
@@ -189,14 +191,14 @@ current step, directions pointing at real steps, results pointing at real
 directions, opportunities traceable to the result they came from, reviews still
 matching the plan and evidence they were written against.
 
-It reports and never repairs. Silently rewriting your data to clear a warning is
-how you lose work.
+It reports and never repairs. Quietly rewriting your data to clear a warning is
+how people lose work.
 
 In the Obsidian version this had to rebuild an index by parsing tags out of
 Markdown, because the relationships only existed as text. Here the relationships
-*are* the data structure, so there is no index — only verification.
+*are* the data structure, so there's no index, only verification.
 
-## Why reviews cannot go stale on you
+## Why reviews can't go stale on you
 
 A review records four things about the moment it was written: the plan version,
 the step it judged, its own status, and a fingerprint of the exact evidence it

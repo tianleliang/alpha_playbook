@@ -1,36 +1,37 @@
 # Roadmap
 
-Running list. Add to it whenever something gets deferred; tick things off as
-they land. Newest thinking wins — this file is meant to be edited.
+Running list. Add to it whenever something gets deferred, tick things off as
+they land. Newest thinking wins. This file is meant to be edited.
 
 **Where it stands:** the whole loop runs live, on real accounts, against a real
-database, deployed. See [README.md](README.md).
+database, and it's deployed. See [README.md](README.md).
 
 ---
 
 ## 1. Editing what gets generated
 
-The largest gap, and the one the original system had flagged before this rebuild
-started. Right now you can approve a brief or regenerate it. You cannot fix it.
+The biggest gap, and one the original system had already flagged before this
+rebuild started. Right now you can approve a brief or regenerate it. You can't
+fix it.
 
 - [ ] Inline edits on brief fields, plan steps, and leverage node phrases.
-- [ ] An edit creates a revision rather than overwriting, so regeneration never
-      silently eats a correction.
-- [ ] Feedback-driven revision: say what is wrong, get a proposed diff, approve
-      or reject it. The same proposal-and-gate shape as everything else.
-- [ ] Decide whether that is one control or one per artifact.
+- [ ] An edit should create a revision rather than overwrite, so regenerating
+      never quietly eats a correction.
+- [ ] Say what's wrong, get a proposed diff, approve or reject it. Same
+      proposal-and-gate shape as everything else.
+- [ ] Decide whether that's one control or one per artifact.
 
 ## 2. Scan quality
 
-Partly addressed — the per-category guidance is back in the prompt, and results
-say what they are rather than which lane found them. The rest is unfinished.
+Half done. The per-category guidance is back in the prompt, and results say what
+they are rather than which lane found them. The rest isn't.
 
 - [ ] Cut verbosity while keeping enough for promotion and later reasoning.
 - [ ] Separate "make this" from "apply to this" more sharply than the three
-      result types manage today.
+      result types manage right now.
 - [ ] Push `standard_programs` and `direct_opportunities` harder toward things
       with an actual application route.
-- [ ] Retune the broad-versus-local balance against a goal that is not a
+- [ ] Retune the broad-versus-local balance against a goal that's not a
       university application.
 
 ## 3. The gaps from building it
@@ -48,45 +49,46 @@ say what they are rather than which lane found them. The rest is unfinished.
 
 ## 4. The daily layer
 
-The original vision was "new tasks every day". Nothing in the current design
-does this, and it is an addition rather than a missing piece: steps are
-month-scale, opportunities are things you chose, and neither is a daily task.
+The original idea was "new tasks every day". Nothing in the current design does
+that, and it would be an addition rather than a missing piece. Steps are
+month-scale, opportunities are things you picked, and neither one is a daily
+task.
 
-- [ ] Decide whether daily items are derived fresh each morning or stored and
-      checkable. Derived cannot drift; stored is what lets you look back.
-- [ ] A morning view that is not the whole workspace.
+- [ ] Decide whether daily items get derived fresh each morning or stored and
+      checked off. Derived can't drift. Stored is what lets you look back.
+- [ ] A morning view that's not the whole workspace.
 - [ ] Only then: scheduling, reminders, notifications.
 
 ## 5. Richer personal context
 
-Onboarding builds a profile from a resume and three questions. The system it
-came from used a far richer compiled history.
+Onboarding builds a profile from a resume and three questions, which is thin
+next to the compiled history the original system ran on.
 
 - [ ] Import a generated Personal Leverage Map through the existing
-      `PersonalContextProvider` slot — it was designed for exactly this.
+      `PersonalContextProvider` slot, it was designed for exactly this.
 - [ ] Keep source links so a plan can cite where a claim came from.
-- [ ] `plan.profileHash` is already stored; use it to notice when a plan was
-      built from a version of you that has moved on, and offer a re-plan.
+- [ ] `plan.profileHash` already gets stored. Use it to spot when a plan was
+      built from a version of you that has since moved on, and offer a re-plan.
 
 ## 6. Scheduled scans
 
 - [ ] A weekly scan per active goal, once quality is worth automating.
-- [ ] Due-state and locking belong in the app, not in a scheduler. The Obsidian
-      version learned that the hard way.
+- [ ] Due-state and locking belong in the app rather than in a scheduler. The
+      Obsidian version learned that the hard way.
 
-## 7. Before it is genuinely public-facing
+## 7. Before it's genuinely public-facing
 
 - [ ] Swap the demo fixture for a fully synthetic run. Private names are already
       replaced, but the school and its details remain.
 - [ ] Real tests around the transition logic, beyond the three check suites.
 - [ ] Long calls hold an HTTP connection for up to three minutes. Fine on a
-      plain Node host; OpenAI's background mode plus polling would be the
-      correct fix if that ever stops being true.
+      plain Node host. If that ever stops being true, background mode plus
+      polling is the right fix.
 - [ ] The free Render tier sleeps after fifteen minutes.
 
 ---
 
-## Settled, so it does not come back
+## Settled, so it doesn't come back
 
 - **Nested requirement checklists under steps.** Tried in the original system
   and discarded. Steps are judged, not ticked off.
@@ -98,11 +100,11 @@ came from used a far richer compiled history.
 ## Closed by the rebuild
 
 Two whole tracks from the original list stopped existing rather than getting
-done:
+finished:
 
 - **Object index and structure.** The old system hand-tagged Markdown and
-  regenerated a JSON index so commands could ask "all steps in this plan". Here
-  that question is `plan.steps`. There is no index to keep in sync, and the
-  regex parsers that used to lose completed steps cannot exist. What survived is
-  the validation half, as `src/core/validate.ts`.
-- **An app-like interaction layer.** That is the whole thing now.
+  rebuilt a JSON index so commands could ask for "all steps in this plan". Here
+  that question is just `plan.steps`. Nothing to keep in sync, and the regex
+  parsers that used to lose completed steps can't exist. Only the validation
+  half survived, as `src/core/validate.ts`.
+- **An app-like interaction layer.** That's the whole thing now.
