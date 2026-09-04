@@ -3,9 +3,6 @@
 **[playbook-e8xd.onrender.com](https://playbook-e8xd.onrender.com/welcome)** ·
 **[See a real run](https://playbook-e8xd.onrender.com/demo)** (no sign-up, loads instantly)
 
-> Free hosting, so it sleeps after 15 minutes idle. A cold first visit takes
-> 30–50 seconds to wake up.
-
 Pick any goal. Playbook researches what you're actually chasing, builds a plan
 backwards from it using what you already have, then goes and finds real
 opportunities that move the step you're on right now. Finish something, log it,
@@ -103,6 +100,54 @@ the structural pieces.
 
 ---
 
+## What's in it
+
+**Accounts.** Supabase Auth, email and password. Middleware refreshes the session
+on every request and gates every route, so a signed-out visitor lands on the
+landing page instead of a broken workspace.
+
+**A real database.** Postgres, two tables, domain objects stored as JSONB.
+Ownership is enforced by row-level security rather than by `where` clauses in the
+app, which means there's no policy that would let one account read another's rows
+even if the application code had a bug.
+
+**Live API calls.** OpenAI's Responses API with structured outputs and hosted web
+search. Six stages sit behind one interface with three implementations (OpenAI, a
+local CLI, and fixtures), and nothing else in the app can tell which one is
+running. Every response gets schema-checked before it's allowed anywhere near
+your data.
+
+**Typed objects with real state machines.** Eleven of them, each with the states
+it's allowed to be in and the transitions it's allowed to make. `src/core/flow.ts`
+is the whole rulebook, and the interface asks it what to show rather than
+deciding for itself.
+
+**Components, one folder per screen.** Onboarding, goal, brief, plan, nodes,
+scan, opportunities, review. Each owns its own server actions and its own
+components.
+
+**Mobile.** The two-column workspace collapses to one, and the demo's callouts
+move from a side gutter to stacked, so the connector lines still make sense on a
+phone.
+
+**Animation where it earns its place.** Model calls take between 20 seconds and
+three minutes, which is far too long for a spinner, so each stage shows what it's
+doing, roughly how long it takes (from measured runs), and how long it's been.
+Plus a progress rail that fills as steps complete, and a light/dark toggle that
+sets itself before paint so there's no flash.
+
+**Spend guards.** A lock so one goal can't run two model calls at once, a
+cooldown on re-scanning, and a daily ceiling. Worth having when every scan is a
+live web search.
+
+**A health check** that verifies every relationship in your data: orphaned
+references, duplicate ids, reviews that no longer match what they judged.
+
+**Three test suites** over the state machine, the review flow, and the spend
+policy. `npm run check:all`.
+
+---
+
 ## Time spent
 
 Around **10 hours**. Roughly a third on the domain model and the state machine, a
@@ -111,7 +156,19 @@ interface, the demo, and the spend guards.
 
 ---
 
-## Running it locally
+## Running it
+
+It's deployed, so the easiest thing is just to open it:
+
+### **[playbook-e8xd.onrender.com](https://playbook-e8xd.onrender.com/welcome)**
+
+[The demo](https://playbook-e8xd.onrender.com/demo) needs no account and loads
+instantly. Signing up runs everything live.
+
+> Free hosting sleeps after 15 minutes idle, so a cold first visit takes 30 to 50
+> seconds to wake up. It's quick after that.
+
+### Or locally
 
 ```bash
 npm install
