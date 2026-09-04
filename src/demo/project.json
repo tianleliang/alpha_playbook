@@ -16,14 +16,14 @@
         "title": "Lock ED school and the narrative spine you’ll prove",
         "status": "current",
         "dateRange": "September 2-5, 2026",
-        "asymmetricMove": "Use Terrence Liang (Penn) for a 30-minute call to sanity-check Penn vs. other ED options and align supplements to that school’s ethos before writing.",
+        "asymmetricMove": "Use Priya Raman (Penn) for a 30-minute call to sanity-check Penn vs. other ED options and align supplements to that school’s ethos before writing.",
         "importantMoves": [
           "Decide ED school (e.g., Penn SEAS, CMU SCS, Cornell Engineering, Northwestern), based on supplement fit and where a visible toolkit with adoption reads strongest.",
           "Outline the 3-beat story: VEX coder → built VEX FastStart for peers → scaled through CSO/TSA with measured gains.",
           "Inventory ED requirements (recs allowed, optional portfolio link, testing policy) and set hard submit date 3–4 days before the deadline."
         ],
         "externalLeverage": [
-          "Terrence Liang (UPenn) to pressure-test Penn ED fit and review prompt interpretations.",
+          "Priya Raman (UPenn) to pressure-test Penn ED fit and review prompt interpretations.",
           "Your ZCHS college counselor to confirm school policy on additional recommendations and update letters."
         ],
         "completionSignals": [
@@ -103,10 +103,10 @@
         "importantMoves": [
           "Confirm recommenders: STEM teacher, TSA advisor or VEX coach; provide Impact Brief + bullet list of traits to emphasize (initiative, teaching peers, measurable outcomes).",
           "Ask counselor to mention $20k fund stewardship + event ops paired with technical leadership.",
-          "If your ED school allows, line up one concise outside endorsement (Amy Francetic or Ted Vatsndal): 4–6 sentences on initiative, follow‑through, and clarity in asking for feedback."
+          "If your ED school allows, line up one concise outside endorsement (Dana Whitfield or Marcus Reyes): 4–6 sentences on initiative, follow‑through, and clarity in asking for feedback."
         ],
         "externalLeverage": [
-          "Amy Francetic or Ted Vatsndal for a short outside note only if your ED school permits additional recommendations or Additional Info quotes.",
+          "Dana Whitfield or Marcus Reyes for a short outside note only if your ED school permits additional recommendations or Additional Info quotes.",
           "ZCHS counseling office to clarify caps on external letters."
         ],
         "completionSignals": [
@@ -120,19 +120,19 @@
         "title": "Write ED essays that point to real links and decisions you own",
         "status": "pending",
         "dateRange": "October 5-20, 2026",
-        "asymmetricMove": "Use Terrence Liang to red-team Penn/target supplements for tone and specificity common to accepted essays at that school.",
+        "asymmetricMove": "Use Priya Raman to red-team Penn/target supplements for tone and specificity common to accepted essays at that school.",
         "importantMoves": [
           "Draft PS framing: competitions sharpened you; building FastStart multiplied impact; measurable peer outcomes; closing with how ED school’s ecosystem is the surface you’ll scale on.",
           "Draft ED supplements that reference the repo, demo, and reflection; include 1–2 sentences on why the school’s labs/clubs map to expanding FastStart (do not promise new products).",
-          "Have Terrence mark what reads generic; fix with concrete nouns (team names, metrics, file names) and remove buzzwords.",
+          "Have Priya mark what reads generic; fix with concrete nouns (team names, metrics, file names) and remove buzzwords.",
           "QA links (GitHub, video) and file naming; export a clean PDF of the Impact Brief for counselor/Additional Info if space permits."
         ],
         "externalLeverage": [
-          "Terrence Liang for school-specific tone and prompts.",
+          "Priya Raman for school-specific tone and prompts.",
           "School writing center or trusted English teacher for line edits without sanding off your technical specificity."
         ],
         "completionSignals": [
-          "Essays hit word counts, include 1–2 live links, and survive two external reads (Terrence + one teacher).",
+          "Essays hit word counts, include 1–2 live links, and survive two external reads (Priya + one teacher).",
           "All supplements are finalized in your ED portal drafts."
         ]
       },
@@ -209,11 +209,11 @@
         "strategicImplication": "Essay voice can credibly connect engineering choices to real-world tradeoffs—distinctive framing for ED essays."
       },
       {
-        "fact": "Relationships: Amy Francetic (climate VC), Ted Vatsndal (MISO Energy exec), and Terrence Liang (UPenn student).",
+        "fact": "Relationships: Dana Whitfield (climate VC), Marcus Reyes (Midstate Grid exec), and Priya Raman (UPenn student).",
         "sourceLinks": [
           "user-profile"
         ],
-        "strategicImplication": "Use Terrence for school-specific supplement tuning; Amy/Ted for brief endorsement or mentoring note to validate initiative, not as time-consuming projects."
+        "strategicImplication": "Use Priya for school-specific supplement tuning; Amy/Ted for brief endorsement or mentoring note to validate initiative, not as time-consuming projects."
       },
       {
         "fact": "Managed $20,000+ Student Council funds; organized community events.",
@@ -226,14 +226,14 @@
     "profileHash": "cf9dcd58",
     "asymmetricThesis": [
       "Turn your existing VEX C++ codebase and tutoring curriculum into a public, adoptable toolkit (VEX FastStart) and seed it through CSO/TSA/tutoring for immediate, countable users.",
-      "Use Terrence Liang (Penn) to shape ED supplements to a single school’s ethos, while your artifact provides the hard evidence those essays point to.",
-      "Leverage Amy Francetic and/or Ted Vatsndal for a tightly scoped, one-paragraph endorsement or quote about your initiative (only if your ED school accepts additional recommendations or quotes in Additional Info).",
+      "Use Priya Raman (Penn) to shape ED supplements to a single school’s ethos, while your artifact provides the hard evidence those essays point to.",
+      "Leverage Dana Whitfield and/or Marcus Reyes for a tightly scoped, one-paragraph endorsement or quote about your initiative (only if your ED school accepts additional recommendations or quotes in Additional Info).",
       "Package Student Council $20k operations into a brief that proves you already manage resources and teams—paired with the toolkit’s rollout, this reads as “builder who ships and scales.”",
       "Use your debate background to publish a concise technical-reflection piece that links engineering decisions in the toolkit (PID/odometry tradeoffs) to systems thinking—unique angle most HS applicants won’t have."
     ],
     "strategicDiagnosis": [
       "ED odds improve when your application shows shipped impact and a tight narrative; you have raw fuel (VEX wins, TSA leadership, CSO distribution, tutoring clients) but the proof isn’t yet packaged into a visible, sharable artifact tied to users.",
-      "Your warm access to an energy VC (Amy Francetic) and a grid executive (Ted Vatsndal) is rare for a high school applicant; these should be used narrowly (precision endorsements and reality-checks), not as new, heavy projects pre-ED.",
+      "Your warm access to an energy VC (Dana Whitfield) and a grid executive (Marcus Reyes) is rare for a high school applicant; these should be used narrowly (precision endorsements and reality-checks), not as new, heavy projects pre-ED.",
       "You can reach users instantly: 150+ CSO members, TSA/VEX teams, and 10+ tutoring clients. Converting this private reach into public adoption metrics is the fastest path to non-generic impact.",
       "Debate accolades on tech policy are distinctive; they should frame essays as “I turn competitive tech into community infrastructure,” connecting policy judgment to practical tools you built for peers.",
       "Risk right now is time: senior fall. Any plan that starts a net-new startup, new stack, or research track is likely to dilute essay quality and adoption metrics before Nov 1."
